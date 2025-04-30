@@ -7,10 +7,13 @@ use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
 use Filament\Pages;
+use App\Filament\Pages\PatientDiabetesTools;
 use Filament\Panel;
 use Filament\PanelProvider;
 use Filament\Support\Colors\Color;
 use Filament\Widgets;
+
+use App\Filament\Patient\Pages\CalculInsuline;
 //use App\Filament\Patient\Pages\pages\SaisieGlycemie;
 
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
@@ -39,6 +42,7 @@ class PatientPanelProvider extends PanelProvider
                // Pages\SaisieGlycemie::class,
               // Pages\HistoriqueMedical::class,
              // PatientProfile::class,
+             CalculInsuline::class,
             ])
             ->discoverWidgets(in: app_path('Filament/Patient/Widgets'), for: 'App\\Filament\\Patient\\Widgets')
             ->widgets([
@@ -59,6 +63,12 @@ class PatientPanelProvider extends PanelProvider
             ->authMiddleware([
                 Authenticate::class,
             ]);
+
+          //  ->navigationItems([
+            //    NavigationItem::make('Outils diabète')
+              //      ->url(fn (): string => PatientDiabetesTools::getUrl())
+                //    ->icon('heroicon-o-beaker'),
+            //]);
 
     }
 }

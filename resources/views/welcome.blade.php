@@ -151,7 +151,7 @@
                 <p class="text-sm font-semibold">
                     Continue as a doctor, review patient information and provide medical insights
                 </p>
-                <a href="{{ route('filament.medecin.pages.dashboard') }}"
+                <a href="{{ route('filament.doctor.pages.dashboard') }}"
                    class="p-2 rounded bg-sky-500 hover:bg-sky-800 duration-300 ease-in-out text-white transition-all hover:-translate-y-1">
                     Continue as a doctor
                 </a>

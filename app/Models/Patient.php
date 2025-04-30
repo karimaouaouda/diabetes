@@ -3,8 +3,9 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-
-class Patient extends Model
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Laravel\Sanctum\HasApiTokens;
+class Patient extends Authenticatable
 {
     public function glycemies()
 {
@@ -19,4 +20,12 @@ public function consultations()
 {
     return $this->hasMany(Consultation::class);
 }
+public function medecin()
+{
+    return $this->hasMany(medecin::class);
+}
+// Model Patient.php
+
+
+
 }

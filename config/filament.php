@@ -86,4 +86,10 @@ return [
 
     'livewire_loading_delay' => 'default',
 
+    'panels' => [
+    'patient' => [
+        'path' => 'patient',
+        'auth' => true, // Si l'accès est réservé aux patients connectés
+    ],
+],
 ];

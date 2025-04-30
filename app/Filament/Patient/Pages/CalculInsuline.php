@@ -1,161 +1,116 @@
 <?php
-
 namespace App\Filament\Patient\Pages;
 
-use Filament\Forms\Components\Fieldset;
 use Filament\Forms\Components\TextInput;
-use Filament\Forms\Components\TimePicker;
-use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Form;
-use Filament\Notifications\Notification;
 use Filament\Pages\Page;
-use Filament\Forms\Contracts\HasForms;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Http;
+use Illuminate\Http\Request;
 
-class CalculInsuline extends Page implements HasForms
+class CalculInsuline extends Page
 {
-    use InteractsWithForms;
-
-    protected static ?string $navigationIcon = 'heroicon-o-calculator';
     protected static string $view = 'filament.patient.pages.calcul-insuline';
-    protected static ?string $navigationLabel = 'Calcul d\'insuline';
-    protected static ?string $title = 'Calculateur de dose d\'insuline';
-    protected static ?string $slug = 'calcul-insuline';
+    protected static ?string $navigationLabel = 'Calculateur d\'Insuline';
 
-    public ?array $data = [];
-    public ?float $doseInsuline = null;
-
-    public function mount(): void
-    {
-        $this->form->fill();
-    }
+    public $blood_glucose;
+    public $target_glucose;
+    public $carbohydrates;
+    public $insulin_sensitivity;
+    public $carb_ratio;
+    public $iob = 0;
+    public $result;
 
     public function form(Form $form): Form
     {
         return $form
             ->schema([
-                Fieldset::make('Détails du repas')
-                ->schema([
-                    TextInput::make('glucides')
-                        ->label('Glucides (g)')
-                        ->numeric()
-                        ->required(),
+                TextInput::make('blood_glucose')
+                    ->label('Glycémie Actuelle (mg/dL)')
+                    ->numeric()
+                    ->required(),
 
-                    TextInput::make('quantité')
-                        ->label('Quantité (g)')
-                        ->numeric()
-                        ->required(),
-                ])->columns(2),
-                Fieldset::make('Détails du repas')
-                    ->schema([
-                        TextInput::make('glucides')
-                            ->label('Glucides (g)')
-                            ->numeric()
-                            ->required(),
+                TextInput::make('target_glucose')
+                    ->label('Cible Glycémique (mg/dL)')
+                    ->numeric()
+                    ->default(100)
+                    ->required(),
 
-                        TextInput::make('proteines')
-                            ->label('Protéines (g)')
-                            ->numeric()
-                            ->required(),
+                TextInput::make('carbohydrates')
+                    ->label('Glucides (g)')
+                    ->numeric()
+                    ->required(),
 
-                        TextInput::make('lipides')
-                            ->label('Lipides (g)')
-                            ->numeric()
-                            ->required(),
-                    ])->columns(3),
+                TextInput::make('insulin_sensitivity')
+                    ->label('Sensibilité Insuline (mg/dL/unité)')
+                    ->numeric()
+                    ->default(50)
+                    ->required(),
 
+                TextInput::make('carb_ratio')
+                    ->label('Ratio Glucides (g/unité)')
+                    ->numeric()
+                    ->default(10)
+                    ->required(),
 
-
-                Fieldset::make('Paramètres actuels')
-                    ->schema([
-                        TextInput::make('glycemie_avant')
-                            ->label('Glycémie avant repas (mmol/L)')
-                            ->numeric()
-                            ->required()
-                            ->step(0.1),
-
-                        TextInput::make('ratio_insuline')
-                            ->label('Ratio insuline/glucides')
-                            ->numeric()
-                            ->required()
-                            ->default(1)
-                            ->step(0.1),
-
-                        TimePicker::make('heure_repas')
-                            ->label('Heure du repas')
-                            ->required()
-                            ->default(now()),
-                    ])->columns(3),
-            ])
-            ->statePath('data');
-    }
-
-    public function calculerDose(): void
-    {
-        $data = $this->form->getState();
-
-        try {
-            // Appel à l'API de calcul
-            $response = Http::post('https://api-votre-service.com/calcul-insuline', [
-                'glucides' => $data['glucides'],
-                'proteines' => $data['proteines'],
-                'lipides' => $data['lipides'],
-                'glycemie' => $data['glycemie_avant'],
-                'ratio' => $data['ratio_insuline'],
-                'patient_id' => Auth::id()]);
-
-            if ($response->successful()) {
-                $this->doseInsuline = $response->json()['dose_insuline'];
-
-                Notification::make()
-                    ->title('Calcul réussi')
-                    ->success()
-                    ->send();
-            } else {
-                throw new \Exception('Erreur API');
-            }
-        } catch (\Exception $e) {
-            Notification::make()
-                ->title('Erreur de calcul')
-                ->danger()
-                ->body($e->getMessage())
-                ->send();
-        }
-    }
-
-    public function enregistrer(): void
-    {
-        if (!$this->doseInsuline) {
-            Notification::make()
-                ->title('Veuillez d\'abord calculer la dose')
-                ->warning()
-                ->send();
-            return;
-        }
-
-        try {
-            // Enregistrement dans la base de données
-            Auth::user()->dosesInsuline()->create([
-                'dose' => $this->doseInsuline,
-                'details' => $this->form->getState(),
-                'date_heure' => now(),
+                TextInput::make('iob')
+                    ->label('Insuline Active (IOB)')
+                    ->numeric()
+                    ->default(0),
             ]);
 
-            Notification::make()
-                ->title('Dose enregistrée avec succès')
-                ->success()
-                ->send();
-
-            $this->reset('doseInsuline');
-            $this->form->fill();
-
-        } catch (\Exception $e) {
-            Notification::make()
-                ->title('Erreur d\'enregistrement')
-                ->danger()
-                ->body($e->getMessage())
-                ->send();
-        }
     }
+
+    public function calculate()
+    {
+        $this->validate();
+
+        $this->result = $this->calculateInsulinDose(
+            $this->carbohydrates,
+            $this->blood_glucose,
+            $this->target_glucose,
+            $this->insulin_sensitivity,
+            $this->carb_ratio,
+            $this->iob
+        );
+    }
+
+    private function calculateInsulinDose($carbs, $currentBg, $targetBg, $isf, $icr, $iob)
+    {
+        $carbDose = $carbs / $icr;
+        $correctionDose = ($currentBg - $targetBg) / $isf;
+        $totalDose = $carbDose + $correctionDose - $iob;
+
+        return [
+            'total' => max(round($totalDose, 1), 0),
+            'components' => [
+                'carbs' => round($carbDose, 1),
+                'correction' => round($correctionDose, 1),
+                'iob' => round($iob, 1)
+            ]
+        ];
+    }
+
+    // Endpoint API
+    public function apiCalculate(Request $request)
+    {
+        $data = $request->validate([
+            'blood_glucose' => 'required|numeric',
+            'target_glucose' => 'required|numeric',
+            'carbohydrates' => 'required|numeric',
+            'insulin_sensitivity' => 'required|numeric',
+            'carb_ratio' => 'required|numeric',
+            'iob' => 'sometimes|numeric'
+        ]);
+
+        return response()->json(
+            $this->calculateInsulinDose(
+                $data['carbohydrates'],
+                $data['blood_glucose'],
+                $data['target_glucose'],
+                $data['insulin_sensitivity'],
+                $data['carb_ratio'],
+                $data['iob'] ?? 0
+            )
+        );
+    }
+
 }

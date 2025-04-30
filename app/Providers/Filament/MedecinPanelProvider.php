@@ -17,14 +17,15 @@ use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
+use app\Filament\Medecin\Pages\PatientGlycemieHistory;
 
 class MedecinPanelProvider extends PanelProvider
 {
     public function panel(Panel $panel): Panel
     {
         return $panel
-            ->id('medecin')
-            ->path('medecin')
+            ->id('doctor')
+            ->path('doctor')
             ->colors([
                 'primary' => Color::Green,
             ])
@@ -35,7 +36,7 @@ class MedecinPanelProvider extends PanelProvider
             ->pages([
                 Pages\Dashboard::class,
 
-               // Pages\PatientGlycemieHistory::class,
+                PatientGlycemieHistory::class,
 
             ])
             ->discoverWidgets(in: app_path('Filament/Medecin/Widgets'), for: 'App\\Filament\\Medecin\\Widgets')

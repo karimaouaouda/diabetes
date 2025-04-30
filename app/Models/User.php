@@ -8,10 +8,11 @@ use Filament\Models\Contracts\FilamentUser;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Filament\Panel;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
 
-class User extends Authenticatable /* mplements FilamentUser  implements MustVerifyEmail */
+class User extends Authenticatable implements FilamentUser
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
@@ -23,6 +24,7 @@ class User extends Authenticatable /* mplements FilamentUser  implements MustVer
      */
     protected $fillable = [
         'name',
+        'role',
         'email',
         'password',
     ];
@@ -74,5 +76,24 @@ class User extends Authenticatable /* mplements FilamentUser  implements MustVer
     public function patientProfile()
     {
         return $this->hasOne(PatientProfile::class);
+    }
+
+
+    public function information(){
+        return $this->hasMany(Information::class, 'patient_id');
+    }
+
+    public function followings(){
+        return $this->belongsToMany(User::class, 'followings', 'patient_id');
+    }
+
+    public function followers(){
+        return $this->belongsToMany(User::class, 'followings', 'doctor_id');
+    }
+
+
+    public function canAccessPanel(Panel $panel): bool
+    {
+        return $this->role == $panel->getId();
     }
 }
