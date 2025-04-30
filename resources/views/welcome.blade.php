@@ -146,7 +146,7 @@
                      class="w-40 h-auto transition-transform duration-300 ease-in-out group-hover:scale-105"
                      alt="Doctor illustration">
                 <h1 class="text-xl text-slate-800">
-                    Docto
+                    Doctor
                 </h1>
                 <p class="text-sm font-semibold">
                     Continue as a doctor, review patient information and provide medical insights
