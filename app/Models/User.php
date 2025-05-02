@@ -96,4 +96,25 @@ class User extends Authenticatable implements FilamentUser
     {
         return $this->role == $panel->getId();
     }
+    public function insulinSettings()
+    {
+        return $this->hasOne(InsulinSettings::class);
+    }
+
+    /**
+     * Obtenir les calculs d'insuline de l'utilisateur.
+     */
+    public function insulinCalculations()
+    {
+        return $this->hasMany(InsulinCalculation::class);
+    }
+    public function insulinEntries()
+{
+    return $this->hasMany(InsulinEntry::class);
+}
+
+public function settings()
+{
+    return $this->hasOne(UserSetting::class);
+}
 }

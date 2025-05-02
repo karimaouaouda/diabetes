@@ -9,12 +9,42 @@ class InsulinCalculation extends Model
 {
     use HasFactory;
 
+    /**
+     * Les attributs qui sont assignables en masse.
+     *
+     * @var array
+     */
     protected $fillable = [
-        'current_glucose',
-        'carbs',
-        'carb_ratio',
-        'insulin_sensitivity',
-        'target_glucose',
-        'calculated_dose',
+        'user_id',
+        'blood_glucose',
+        'carbohydrates',
+        'meal_type',
+        'correction_units',
+        'meal_units',
+        'total_units',
+        'physical_activity',
+        'notes',
     ];
+
+    /**
+     * Les attributs qui doivent être castés.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'blood_glucose' => 'float',
+        'carbohydrates' => 'float',
+        'correction_units' => 'float',
+        'meal_units' => 'float',
+        'total_units' => 'float',
+        'created_at' => 'datetime',
+    ];
+
+    /**
+     * Obtenir l'utilisateur associé à ce calcul.
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
