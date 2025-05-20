@@ -2,19 +2,10 @@
 
 namespace App\Enums;
 
-enum InformationOrder : string
+enum informationtype : string
 {
-    case BEFORE_BREAKFAST = 'BEFORE_BREAKFAST';
+    case BEFORE_BREAKFAST = 'Glycémie actuelle';
 
-    case AFTER_BREAKFAST = 'AFTER_BREAKFAST';
-
-    case BEFORE_LUNCH = 'BEFORE_LUNCH';
-
-    case AFTER_LUNCH = 'AFTER_LUNCH';
-
-    case BEFORE_DINNER = 'BEFORE_DINNER';
-
-    case AFTER_DINNER = 'AFTER_DINNER';
 
 
 

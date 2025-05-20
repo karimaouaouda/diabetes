@@ -18,6 +18,7 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Facades\Auth;
+use App\Enums\informationtype;
 
 class InformationResource extends Resource
 {
@@ -33,8 +34,9 @@ class InformationResource extends Resource
                     ->default(Auth::id()),
                 Select::make('info_type_id')
                     ->required()
-                    ->relationship('informationType', 'name')
+                    ->relationship('informationtype', 'name')
                     ->searchable(),
+
                 Select::make('info_order')
                     ->required()
                     ->options(InformationOrder::toArray()),
@@ -51,12 +53,13 @@ class InformationResource extends Resource
             ->columns([
                 TextColumn::make('informationType.name')
                     ->badge(),
+                    //->array_searchable();
                 TextColumn::make('value')
                     ->color(function(Information $record){
                         $min_value = $record->informationType->min_value;
                         $max_value = $record->informationType->max_value;
 
-                        
+
                     })
                     ->badge()
             ])

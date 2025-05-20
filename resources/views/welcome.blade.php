@@ -507,7 +507,7 @@
         <div class="content-overlay">
             <!-- App Introduction -->
             <div class="app-presentation animate-fade-in">
-                <h2 class="animate-slide-in-left">Welcome to DiabetaCare</h2>
+                <h2 class="animate-slide-in-left">Welcome to DiabeteCare</h2>
                 <p class="my-4">
                     Our innovative platform offers a comprehensive solution for monitoring and managing diabetes.
                     Designed to facilitate communication between patients and doctors, it enables personalized
@@ -543,7 +543,7 @@
                         Continue as a patient, add your medical characteristics and receive guidance from our doctors
                     </p>
                     <a href="{{ route('filament.patient.pages.dashboard') }}" class="card-button">
-                        Continue as a patient
+                      Continuer en tant que patient
                     </a>
                 </div>
 
@@ -555,7 +555,7 @@
                         Continue as a doctor, review patient information and provide medical insights
                     </p>
                     <a href="{{ route('filament.doctor.pages.dashboard') }}" class="card-button">
-                        Continue as a doctor
+                        Continuer en tant que medecin
                     </a>
                 </div>
             </div>
@@ -568,7 +568,7 @@
             <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 20px;">
                 <div>
                     <h3 style="margin: 0; font-size: 1.2rem; font-weight: 600;">DiabetaCare</h3>
-                    <p style="margin: 5px 0 0; font-size: 0.9rem;">Empowering diabetes management</p>
+                    <p style="margin: 5px 0 0; font-size: 0.9rem;">Diabetes Management System</p>
                 </div>
                 <div style="display: flex; gap: 20px;">
                     <a href="#" style="color: white; text-decoration: none; font-size: 0.9rem;">Privacy Policy</a>

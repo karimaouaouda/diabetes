@@ -339,18 +339,73 @@
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
+
+        /* Meal Selector Style */
+        .meal-selector {
+            display: inline-flex;
+            align-items: center;
+            margin-left: 1rem;
+            position: relative;
+        }
+
+        .meal-select-button {
+            background: linear-gradient(to right, var(--green-600), var(--blue-600));
+            color: white;
+            border: none;
+            border-radius: 0.5rem;
+            padding: 0.5rem 1rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .meal-select-button:hover {
+            background: linear-gradient(to right, var(--green-700), var(--blue-700));
+            transform: translateY(-1px);
+        }
+
+        .meal-select-button svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        /* Header Flex */
+        .header-content {
+            display: flex;
+            align-items: center;
+            width: 100%;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="card">
             <div class="card-header">
-                <h2>Calculateur de Dose d'Insuline</h2>
+                <div class="header-content">
+                    <h2>Calculateur de Dose d'Insuline</h2>
+                    <div class="meal-selector">
+                        <a href="http://127.0.0.1:8000/dashboard" class="meal-select-button">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M3 6l3 0"></path>
+                                <path d="M3 12l3 0"></path>
+                                <path d="M3 18l3 0"></path>
+                                <path d="M8 6l9 0"></path>
+                                <path d="M8 12l9 0"></path>
+                                <path d="M8 18l9 0"></path>
+                            </svg>
+                            Sélectionner un repas
+                        </a>
+                    </div>
+                </div>
             </div>
             <div class="card-body">
                 <form id="insulinCalculator">
                     <div class="form-group">
-                        <label for="carbAmount">Glucides (g)</label>
+                        <label for="carbAmount">Carbs (g)</label>
                         <div class="input-group">
                             <input type="number" class="form-control" id="carbAmount" name="carbAmount" placeholder="Quantité de glucides" min="0" step="1" required>
                             <div class="input-group-append">g</div>
@@ -358,7 +413,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="carbRatio">Ratio Insuline/Glucides</label>
+                        <label for="carbRatio">Ratio Insuline/Carbs</label>
                         <div class="input-group">
                             <input type="number" class="form-control" id="carbRatio" name="carbRatio" placeholder="1:X" min="1" step="0.5" value="10" required>
                             <div class="input-group-append">g/u</div>
@@ -428,7 +483,7 @@
 
                     <div>
                         <div class="component-item carbs-component">
-                            <span class="component-label">Pour les glucides:</span>
+                            <span class="component-label">Pour les carbs:</span>
                             <span class="component-value" id="carbsDose">0u</span>
                         </div>
                         <div class="component-item correction-component">
