@@ -12,7 +12,7 @@
                 size="md"
                 color="primary"
             >
-                Enregistrer 
+                Enregistrer
             </x-filament::button>
         </div>
     </x-filament-panels::form>
