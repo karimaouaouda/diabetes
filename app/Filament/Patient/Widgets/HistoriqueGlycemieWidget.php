@@ -1,11 +1,11 @@
 <?php
 
+
 namespace App\Filament\Patient\Widgets;
 
-use App\Models\Glycemie;
+use App\Models\Glycemies;
 use Filament\Widgets\ChartWidget;
 use Flowframe\Trend\Trend;
-use Flowframe\Trend\TrendValue;
 
 class HistoriqueGlycemieWidget extends ChartWidget
 {
@@ -19,7 +19,7 @@ class HistoriqueGlycemieWidget extends ChartWidget
 
     protected function getData(): array
     {
-        $data = Trend::model(Glycemie::class)
+        $data = Trend::model(Glycemies::class)
             ->between(
                 start: now()->subDays(30),
                 end: now(),
@@ -31,14 +31,16 @@ class HistoriqueGlycemieWidget extends ChartWidget
             'datasets' => [
                 [
                     'label' => 'Moyenne glycémique (mmol/L)',
-                    'data' => $data->map(fn (TrendValue $value) => $value->aggregate),
+                    'data' => [
+                        ...$data->map(fn ($value) => $value->aggregate),
+                    ],
                     'borderColor' => '#3b82f6',
                     'backgroundColor' => '#3b82f680',
                     'fill' => true,
                     'tension' => 0.4,
                 ],
             ],
-            'labels' => $data->map(fn (TrendValue $value) => $value->date),
+            'labels' => [],
         ];
     }
 

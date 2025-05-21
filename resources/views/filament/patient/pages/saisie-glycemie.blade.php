@@ -15,6 +15,7 @@
                 Enregistrer
             </x-filament::button>
         </div>
+       
     </x-filament-panels::form>
 
     {{-- Notification de succès --}}

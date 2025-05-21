@@ -5,8 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Auth;
 
-class Glycemie extends Model
+class Glycemies extends Model
 {
     use HasFactory;
 
@@ -57,7 +59,7 @@ class Glycemie extends Model
             'moment' => [
                 'required',
                 Rule::unique('glycemies')
-                    ->where('patient_id', Auth()->id())
+                    ->where('patient_id', Auth::id())
                     ->where('date_mesure', request()->input('date_mesure'))
             ],
         ];

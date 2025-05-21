@@ -2,7 +2,7 @@
 
 namespace App\Filament\Patient\Pages;
 
-use App\Models\Glycemie;
+use App\Models\glycemies;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
@@ -134,7 +134,7 @@ class SaisieGlycemie extends Page implements HasForms
         $data = $this->form->getState();
 
         foreach ($data['mesures'] as $mesure) {
-            Glycemie::create([
+            glycemies::create([
                 'patient_id' => Auth::id(),
                 'valeur' => $mesure['valeur'],
                 'insuline_calculee' => $mesure['insuline_calculee'] ?? null,
