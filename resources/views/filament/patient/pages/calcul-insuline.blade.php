@@ -388,7 +388,7 @@
                 <div class="header-content">
                     <h2>Calculateur de Dose d'Insuline</h2>
                     <div class="meal-selector">
-                        <a href="http://127.0.0.1:8000/dashboard" class="meal-select-button">
+                        <a href="{{ url('/dashboard') }}" class="meal-select-button">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <path d="M3 6l3 0"></path>
                                 <path d="M3 12l3 0"></path>
