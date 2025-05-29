@@ -9,6 +9,11 @@ Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
+Route::get('/chat', function () {
+    return to_route('filament.pages.chat');
+})->name('chat');
+
+
 Route::view('dashboard', 'dashboard')
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
@@ -21,7 +26,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('settings/appearance', Appearance::class)->name('settings.appearance');
     // Routes pour le calculateur d'insuline (groupe protégé par auth)
 Route::middleware(['auth'])->prefix('patient')->name('patient.')->group(function () {
-    
+
 });
 });
 //Route::get('/profile', PatientProfile::class)->name('profile');
