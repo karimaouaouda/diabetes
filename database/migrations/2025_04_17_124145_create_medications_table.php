@@ -14,7 +14,7 @@ return new class extends Migration
         // database/migrations/..._create_medications_table.php
 Schema::create('medications', function (Blueprint $table) {
     $table->id();
-    $table->foreignId('patient_id')->constrained()->cascadeOnDelete();
+    $table->foreignId('patient_id')->constrained('users')->cascadeOnDelete();
     $table->string('name');
     $table->string('dosage');
     $table->json('times'); // Stocke les heures sous forme ['08:00', '14:00', '20:00']

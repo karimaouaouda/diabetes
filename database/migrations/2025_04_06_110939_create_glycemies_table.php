@@ -12,8 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('glycemies', function (Blueprint $table) {
-            $table->dropForeign(['patient_id']);
-            $table->foreignId('patient_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('patient_id')->constrained('users')->cascadeOnDelete();
             $table->decimal('valeur', 4, 1);
             $table->date('date_mesure');
             $table->time('heure_mesure');
