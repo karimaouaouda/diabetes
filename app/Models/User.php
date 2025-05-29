@@ -92,9 +92,12 @@ class User extends Authenticatable implements FilamentUser
     }
 
 
+    /**
+     * @throws \Exception
+     */
     public function canAccessPanel(Panel $panel): bool
     {
-        return $this->role == $panel->getId();
+        return $this->getAttribute('role') == $panel->getId();
     }
     public function insulinSettings()
     {
