@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Filament\Pages;
+namespace App\Filament\Shared\Pages;
 
 use Filament\Pages\Page;
+use Illuminate\Database\Eloquent\Model;
 
 class Chat extends Page
 {
@@ -18,4 +19,11 @@ class Chat extends Page
 
     // Position dans le menu de la barre latérale
     protected static ?int $navigationSort = 2;
+
+    public int $count = 0;
+
+    public function increament(): void
+    {
+        $this->count++;
+    }
 }

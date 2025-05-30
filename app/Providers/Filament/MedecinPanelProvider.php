@@ -3,6 +3,7 @@
 namespace App\Providers\Filament;
 
 use App\Filament\Medecin\Pages\DoctorRegister;
+use App\Filament\Shared\Pages\Chat;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -36,7 +37,7 @@ class MedecinPanelProvider extends PanelProvider
             ->discoverPages(in: app_path('Filament/Medecin/Pages'), for: 'App\\Filament\\Medecin\\Pages')
             ->pages([
                 Pages\Dashboard::class,
-
+                Chat::class,
                 PatientGlycemieHistory::class,
 
             ])

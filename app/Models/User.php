@@ -4,6 +4,10 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
+use App\Enums\UserRoles;
+use App\Traits\CanHaveConversation;
+use App\Traits\HasDoctorRole;
+use App\Traits\HasPatientRole;
 use Filament\Models\Contracts\FilamentUser;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -15,7 +19,11 @@ use Illuminate\Support\Str;
 class User extends Authenticatable implements FilamentUser
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable;
+    use HasFactory,
+        Notifiable,
+        CanHaveConversation,
+        HasDoctorRole,
+        HasPatientRole;
 
     /**
      * The attributes that are mass assignable.
@@ -49,6 +57,7 @@ class User extends Authenticatable implements FilamentUser
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'role' => UserRoles::class
         ];
     }
 
@@ -97,7 +106,7 @@ class User extends Authenticatable implements FilamentUser
      */
     public function canAccessPanel(Panel $panel): bool
     {
-        return $this->getAttribute('role') == $panel->getId();
+        return $this->getAttribute('role')->value == $panel->getId();
     }
     public function insulinSettings()
     {
