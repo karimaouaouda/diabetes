@@ -2,6 +2,7 @@
 
 namespace App\Providers\Filament;
 
+use App\Filament\Patient\Pages\Auth\PatientRegister;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -34,7 +35,7 @@ class PatientPanelProvider extends PanelProvider
                 'primary' => Color::Sky,
             ])
             ->login()
-            ->registration()
+            ->registration(PatientRegister::class)
             ->discoverResources(in: app_path('Filament/Patient/Resources'), for: 'App\\Filament\\Patient\\Resources')
             ->discoverPages(in: app_path('Filament/Patient/Pages'), for: 'App\\Filament\\Patient\\Pages')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
