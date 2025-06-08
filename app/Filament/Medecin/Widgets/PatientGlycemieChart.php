@@ -11,6 +11,8 @@ class PatientGlycemieChart extends ChartWidget
 
     protected static ?string $heading = 'Évolution glycémique';
 
+
+
     protected static bool $isLazy = false;
 
     protected function getData(): array
@@ -20,6 +22,7 @@ class PatientGlycemieChart extends ChartWidget
             ->orderBy('heure_mesure')
             ->take(10)
             ->get();
+
         return [
             'datasets' => [
                 [

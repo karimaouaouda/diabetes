@@ -5,6 +5,7 @@ namespace App\Filament\Medecin\Resources\PatientResource\Pages;
 use App\Filament\Medecin\Resources\PatientResource;
 use App\Filament\Medecin\Widgets\PatientGlycemieChart;
 use App\Models\Glycemies;
+use App\Models\DoseInsuline;
 use App\Models\User;
 use Filament\Resources\Pages\ViewRecord;
 
@@ -55,4 +56,16 @@ class PatientAnalytics extends ViewRecord
             ->take(10)
             ->get();
     }
+
+  
+
+
+    public function getInsulinDosesProperty()
+    {
+        return DoseInsuline::where('patient_id', $this->record->id)
+            ->orderByDesc('date_heure')
+            ->take(10)
+            ->get();
+    }
+
 }
