@@ -41,7 +41,6 @@
 
         <div class="bg-white rounded-lg shadow p-6">
             <h3 class="text-lg font-medium text-gray-900 mb-4">Évolution glycémique</h3>
-            <livewire:filament.medecin.widgets.patient-glycemie-chart :patient-id="$this->record->id" />
         </div>
 
         <div class="flex justify-end">
