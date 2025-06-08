@@ -3,7 +3,8 @@
 namespace App\Providers\Filament;
 
 use App\Filament\Medecin\Pages\DoctorRegister;
-use App\Filament\Medecin\Pages\PatientAnalytics;
+use app\Filament\Medecin\Pages\PatientGlycemieHistory;
+use App\Filament\Medecin\Resources\PatientResource\Pages\PatientAnalytics;
 use App\Filament\Shared\Pages\Chat;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
@@ -20,7 +21,6 @@ use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
-use app\Filament\Medecin\Pages\PatientGlycemieHistory;
 
 class MedecinPanelProvider extends PanelProvider
 {
