@@ -3,6 +3,7 @@
 namespace App\Providers\Filament;
 
 use App\Filament\Medecin\Pages\DoctorRegister;
+use App\Filament\Medecin\Pages\PatientAnalytics;
 use App\Filament\Shared\Pages\Chat;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
@@ -40,7 +41,7 @@ class MedecinPanelProvider extends PanelProvider
                 Pages\Dashboard::class,
                 Chat::class,
                 PatientGlycemieHistory::class,
-
+                PatientAnalytics::class,
             ])
             ->discoverWidgets(in: app_path('Filament/Medecin/Widgets'), for: 'App\\Filament\\Medecin\\Widgets')
             ->widgets([

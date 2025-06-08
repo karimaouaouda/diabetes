@@ -4,6 +4,7 @@ namespace App\Filament\Medecin\Resources;
 
 use App\Enums\FollowingStatus;
 use App\Filament\Medecin\Resources\PatientResource\Pages;
+use App\Filament\Medecin\Pages\PatientAnalytics;
 use App\Models\Following;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -43,6 +44,11 @@ class PatientResource extends Resource
                     ->color('danger')
                     ->visible(fn (Following $record) => $record->status === FollowingStatus::PENDING)
                     ->action(fn (Following $record) => $record->update(['status' => FollowingStatus::REJECTED])),
+                Action::make('analytics')
+                    ->label('Voir analyse')
+                    ->icon('heroicon-o-chart-bar')
+                    ->visible(fn (Following $record) => $record->status === FollowingStatus::ACCEPTED)
+                    ->url(fn (Following $record) => PatientAnalytics::getUrl(['record' => $record->patient_id])),
             ])
             ->bulkActions([]);
     }
