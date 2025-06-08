@@ -39,6 +39,43 @@
             </table>
         </div>
 
+        <div class="bg-white rounded-lg shadow p-6">
+            <h3 class="text-lg font-medium text-gray-900 mb-4">Évolution glycémique</h3>
+            <canvas id="glycemieChart" height="100"></canvas>
+        </div>
+
+        @push('scripts')
+            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+            <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                    const ctx = document.getElementById('glycemieChart').getContext('2d');
+                    new Chart(ctx, {
+                        type: 'line',
+                        data: {
+                            labels: {!! json_encode($this->glycemieDates) !!},
+                            datasets: [{
+                                label: 'Valeur glycémique (mmol/L)',
+                                data: {!! json_encode($this->glycemieValues) !!},
+                                borderColor: '#3b82f6',
+                                backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                                tension: 0.3,
+                                fill: true
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            scales: {
+                                y: {
+                                    suggestedMin: 2,
+                                    suggestedMax: 10
+                                }
+                            }
+                        }
+                    });
+                });
+            </script>
+        @endpush
+
         <div class="flex justify-end">
             <x-filament::button tag="a" href="{{ route('filament.medecin.pages.chat') }}">
                 Contacter le patient
