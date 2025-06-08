@@ -4,11 +4,10 @@ namespace App\Filament\Medecin\Resources;
 
 use App\Enums\FollowingStatus;
 use App\Filament\Medecin\Resources\PatientResource\Pages;
-use App\Filament\Medecin\Pages\PatientAnalytics;
+use App\Filament\Medecin\Resources\PatientResource\Pages\PatientAnalytics;
 use App\Models\Following;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
-use Filament\Tables;
 use Filament\Tables\Actions\Action;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
@@ -67,6 +66,7 @@ class PatientResource extends Resource
     {
         return [
             'index' => Pages\ListPatients::route('/'),
+            'analytics' => PatientAnalytics::route('/{record}/analytics'),
         ];
     }
 }
