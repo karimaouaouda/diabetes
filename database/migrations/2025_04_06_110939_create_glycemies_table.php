@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::dropIfExists('glycemies');
         Schema::create('glycemies', function (Blueprint $table) {
+            $table->id();
             $table->foreignId('patient_id')->constrained('users')->cascadeOnDelete();
             $table->decimal('valeur', 4, 1);
             $table->date('date_mesure');

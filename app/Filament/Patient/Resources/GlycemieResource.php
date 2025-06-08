@@ -11,6 +11,8 @@ use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
+use Filament\Forms\Get;
+use Filament\Forms\Set;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
@@ -26,6 +28,22 @@ class GlycemieResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-heart';
 
+    private static function calculerInsuline(float $glycemie): float
+    {
+        // Paramètres de calcul d'insuline (à ajuster selon les besoins)
+        $glycemie_cible = 5.5; // mmol/L
+        $facteur_sensibilite = 2.0; // 1 unité d'insuline réduit la glycémie de 2 mmol/L
+
+        if ($glycemie <= $glycemie_cible) {
+            return 0; // Pas d'insuline nécessaire si la glycémie est au niveau cible ou en dessous
+        }
+
+        $insuline_necessaire = ($glycemie - $glycemie_cible) / $facteur_sensibilite;
+
+        // Arrondir à 0.5 unité près
+        return round($insuline_necessaire * 2) / 2;
+    }
+
     public static function form(Form $form): Form
     {
         return $form
@@ -36,7 +54,24 @@ class GlycemieResource extends Resource
                     ->label('Valeur (mmol/L)')
                     ->numeric()
                     ->required()
-                    ->step(0.1),
+                    ->step(0.1)
+                    ->live(debounce: 500)
+                    ->afterStateUpdated(function (Get $get, Set $set, $state) {
+                        if (!is_numeric($state) || empty($state)) {
+                            $set('insuline_calculee', null);
+                            return;
+                        }
+
+                        $glycemie = floatval($state);
+                        $insuline = static::calculerInsuline($glycemie);
+                        $set('insuline_calculee', $insuline);
+                    }),
+                TextInput::make('insuline_calculee')
+                    ->label('Dose d\'insuline (unités)')
+                    ->numeric()
+                    ->step(0.5)
+                    ->disabled()
+                    ->helperText('Dose calculée automatiquement'),
                 DatePicker::make('date_mesure')
                     ->label('Date')
                     ->default(now())
@@ -63,8 +98,10 @@ class GlycemieResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
-            ->query(static::getEloquentQuery())
             ->columns([
+                TextColumn::make('id')
+                    ->badge()
+                    ->prefix('#'),
                 TextColumn::make('date_mesure')
                     ->label('Date')
                     ->date('d/m/Y')
@@ -83,6 +120,7 @@ class GlycemieResource extends Resource
                     ->badge(),
                 TextColumn::make('commentaire')
                     ->label('Commentaire')
+                    ->searchable()
                     ->limit(30),
             ])
             ->filters([
@@ -114,9 +152,9 @@ class GlycemieResource extends Resource
             ]);
     }
 
-    protected static function getEloquentQuery(): Builder
+    public static function getEloquentQuery(): Builder
     {
-        return parent::getEloquentQuery()->where('patient_id', Auth::id());
+        return Glycemies::query()->where('patient_id', Auth::id());
     }
 
     public static function getRelations(): array
