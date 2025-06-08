@@ -14,7 +14,7 @@ use Filament\Panel;
 use Filament\PanelProvider;
 use Filament\Support\Colors\Color;
 use Filament\Widgets;
-
+use Filament\Support\Facades\FilamentIcon;
 use App\Filament\Patient\Pages\CalculInsuline;
 //use App\Filament\Patient\Pages\pages\SaisieGlycemie;
 
@@ -27,6 +27,9 @@ use Illuminate\View\Middleware\ShareErrorsFromSession;
 
 class PatientPanelProvider extends PanelProvider
 {
+    /**
+     * @throws \Exception
+     */
     public function panel(Panel $panel): Panel
     {
         return $panel
@@ -37,9 +40,11 @@ class PatientPanelProvider extends PanelProvider
             ])
             ->login()
             ->registration(PatientRegister::class)
+            ->databaseNotifications()
             ->discoverResources(in: app_path('Filament/Patient/Resources'), for: 'App\\Filament\\Patient\\Resources')
             ->discoverPages(in: app_path('Filament/Patient/Pages'), for: 'App\\Filament\\Patient\\Pages')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
+            ->discoverPages(in: app_path('Filament/Shared/Pages'), for: 'App\\Filament\\Shared\\Pages')
             ->pages([
                 Pages\Dashboard::class,
                Chat::class,
@@ -68,11 +73,16 @@ class PatientPanelProvider extends PanelProvider
                 Authenticate::class,
             ]);
 
-          //  ->navigationItems([
-            //    NavigationItem::make('Outils diabète')
-              //      ->url(fn (): string => PatientDiabetesTools::getUrl())
-                //    ->icon('heroicon-o-beaker'),
-            //]);
+    }
 
+    public function boot()
+    {
+
+
+     FilamentIcon::register([
+         'panels::topbar.account-menu' => 'heroicon-s-pencil', // Example using a Blade icon
+         // Or use HTML:
+         // 'panels::topbar.account-menu' => view('icons.custom-icon'), // If you have a Blade view
+     ]);
     }
 }

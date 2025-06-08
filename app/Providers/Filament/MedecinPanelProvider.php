@@ -35,6 +35,7 @@ class MedecinPanelProvider extends PanelProvider
             ->registration(DoctorRegister::class)
             ->discoverResources(in: app_path('Filament/Medecin/Resources'), for: 'App\\Filament\\Medecin\\Resources')
             ->discoverPages(in: app_path('Filament/Medecin/Pages'), for: 'App\\Filament\\Medecin\\Pages')
+            ->discoverPages(in: app_path('Filament/Shared/Pages'), for: 'App\\Filament\\Shared\\Pages')
             ->pages([
                 Pages\Dashboard::class,
                 Chat::class,

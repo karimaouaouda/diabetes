@@ -11,13 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('information_types', function (Blueprint $table) {
+        Schema::create('meals', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('admin_id')
+                ->nullable()
+                ->constrained('users')
+                ->nullOnDelete();
             $table->string('name');
-            $table->string('short_name')->nullable();
-            $table->float('min_value');
-            $table->float('max_value');
-            $table->string('unit');
+            $table->string('description');
+            $table->string('image')
+                ->nullable();
+            $table->float('carbs');
             $table->timestamps();
         });
     }
@@ -27,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('information_types');
+        Schema::dropIfExists('meals');
     }
 };

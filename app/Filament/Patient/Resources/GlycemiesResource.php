@@ -2,9 +2,9 @@
 
 namespace App\Filament\Patient\Resources;
 
-use App\Filament\Patient\Resources\InformationTypeResource\Pages;
-use App\Filament\Patient\Resources\InformationTypeResource\RelationManagers;
-use App\Models\InformationType;
+use App\Filament\Patient\Resources\GlycemiesResource\Pages;
+use App\Filament\Patient\Resources\GlycemiesResource\RelationManagers;
+use App\Models\Glycemies;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -13,19 +13,17 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class InformationTypeResource extends Resource
+class GlycemiesResource extends Resource
 {
-    protected static ?string $model = InformationType::class;
+    protected static ?string $model = Glycemies::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
-
-    protected static bool $shouldRegisterNavigation = false;
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-
+                //
             ]);
     }
 
@@ -58,9 +56,9 @@ class InformationTypeResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListInformationTypes::route('/'),
-            'create' => Pages\CreateInformationType::route('/create'),
-            'edit' => Pages\EditInformationType::route('/{record}/edit'),
+            'index' => Pages\ListGlycemies::route('/'),
+            'create' => Pages\CreateGlycemies::route('/create'),
+            'edit' => Pages\EditGlycemies::route('/{record}/edit'),
         ];
     }
 }

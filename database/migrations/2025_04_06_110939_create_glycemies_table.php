@@ -20,7 +20,6 @@ return new class extends Migration
             $table->string('moment');
             $table->text('commentaire')->nullable();
             $table->timestamps();
-            //$table->foreignId('user_id')->constrained()->cascadeOnDelete();
         });
     }
 

@@ -134,7 +134,7 @@ class SaisieGlycemie extends Page implements HasForms
         $data = $this->form->getState();
 
         foreach ($data['mesures'] as $mesure) {
-            glycemies::create([
+            Glycemies::create([
                 'patient_id' => Auth::id(),
                 'valeur' => $mesure['valeur'],
                 'insuline_calculee' => $mesure['insuline_calculee'] ?? null,

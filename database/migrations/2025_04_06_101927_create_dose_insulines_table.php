@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('dose_insulines', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('patient_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('patient_id')->constrained('users')->cascadeOnDelete();
             $table->decimal('dose', 8, 2); // Précision augmentée (8 chiffres au total, 2 après la virgule)
             $table->json('details')->nullable(); // Champ JSON pour stocker tous les paramètres
             $table->dateTime('date_heure');
