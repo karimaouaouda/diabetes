@@ -2,7 +2,7 @@
 
 namespace App\Filament\Medecin\Widgets;
 
-use App\Models\Glycemie;
+use App\Models\Glycemies;
 use Filament\Widgets\ChartWidget;
 
 class PatientGlycemieChart extends ChartWidget
@@ -13,7 +13,7 @@ class PatientGlycemieChart extends ChartWidget
 
     protected function getData(): array
     {
-        $records = Glycemie::where('patient_id', $this->patientId)
+        $records = Glycemies::where('patient_id', $this->patientId)
             ->orderBy('date_mesure')
             ->orderBy('heure_mesure')
             ->take(10)

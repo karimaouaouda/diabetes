@@ -1,8 +1,8 @@
 <x-filament-panels::page>
     <div class="space-y-6">
         <div class="bg-white rounded-lg shadow p-6">
-            <h2 class="text-xl font-semibold">{{ $this->patient->name }}</h2>
-            @php($profile = $this->patient->patientProfile)
+            <h2 class="text-xl font-semibold">{{ $this->record->name }}</h2>
+            @php($profile = $this->record->patientProfile)
             @if($profile)
                 <p>Date de naissance : {{ \Carbon\Carbon::parse($profile->date_of_birth)->format('d/m/Y') }}</p>
                 <p>Genre : {{ $profile->gender }}</p>
@@ -41,11 +41,11 @@
 
         <div class="bg-white rounded-lg shadow p-6">
             <h3 class="text-lg font-medium text-gray-900 mb-4">Évolution glycémique</h3>
-            <livewire:filament.medecin.widgets.patient-glycemie-chart :patient-id="$this->patient->id" />
+            <livewire:filament.medecin.widgets.patient-glycemie-chart :patient-id="$this->record->id" />
         </div>
 
         <div class="flex justify-end">
-            <x-filament::button tag="a" href="{{ route('filament.medecin.pages.chat') }}">
+            <x-filament::button tag="a" href="{{ route('filament.doctor.pages.chat') }}">
                 Contacter le patient
             </x-filament::button>
         </div>
