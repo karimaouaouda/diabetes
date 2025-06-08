@@ -100,6 +100,16 @@ class User extends Authenticatable implements FilamentUser
         return $this->belongsToMany(User::class, 'followings', 'doctor_id');
     }
 
+    public function followingRequest()
+    {
+        return $this->hasOne(Following::class, 'patient_id');
+    }
+
+    public function receivedRequests()
+    {
+        return $this->hasMany(Following::class, 'doctor_id');
+    }
+
 
     /**
      * @throws \Exception
