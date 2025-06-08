@@ -34,19 +34,4 @@ class PatientAnalytics extends Page
             ->get();
     }
 
-    public function getGlycemieDatesProperty(): array
-    {
-        return $this->glycemies
-            ->sortBy('date_mesure')
-            ->map(fn ($item) => $item->date_mesure->format('d/m'))
-            ->toArray();
-    }
-
-    public function getGlycemieValuesProperty(): array
-    {
-        return $this->glycemies
-            ->sortBy('date_mesure')
-            ->pluck('valeur')
-            ->toArray();
-    }
 }
