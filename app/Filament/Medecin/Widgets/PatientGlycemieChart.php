@@ -11,9 +11,13 @@ class PatientGlycemieChart extends ChartWidget
 
     protected static ?string $heading = 'Évolution glycémique';
 
+
+
+    protected static bool $isLazy = false;
+
     protected function getData(): array
     {
-        $records = Glycemies::where('patient_id', $this->patientId)
+        $records = Glycemies::where('patient_id', 2)
             ->orderBy('date_mesure')
             ->orderBy('heure_mesure')
             ->take(10)

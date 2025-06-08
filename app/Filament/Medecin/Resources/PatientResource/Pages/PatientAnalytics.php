@@ -3,6 +3,7 @@
 namespace App\Filament\Medecin\Resources\PatientResource\Pages;
 
 use App\Filament\Medecin\Resources\PatientResource;
+use App\Filament\Medecin\Widgets\PatientGlycemieChart;
 use App\Models\Glycemies;
 use App\Models\DoseInsuline;
 use App\Models\User;
@@ -20,6 +21,15 @@ class PatientAnalytics extends ViewRecord
     protected static ?string $slug = 'patient-analytics';
 
     protected static bool $shouldRegisterNavigation = false;
+
+    protected function getHeaderWidgets(): array
+    {
+        return [
+            PatientGlycemieChart::make([
+                'patient_id' => $this->record->id
+            ])
+        ];
+    }
 
     public function mount(int|string $record): void
     {
@@ -47,6 +57,9 @@ class PatientAnalytics extends ViewRecord
             ->get();
     }
 
+  
+
+
     public function getInsulinDosesProperty()
     {
         return DoseInsuline::where('patient_id', $this->record->id)
@@ -54,4 +67,5 @@ class PatientAnalytics extends ViewRecord
             ->take(10)
             ->get();
     }
+
 }
