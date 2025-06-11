@@ -70,7 +70,7 @@ class UserObserver
             'blood_type' => 'B+',
             'height' => 160,
             'weight' => 60,
-            'meals' => ['breakfast' => '08:00', 'lunch'=> '12:00', 'dinner' => '20:00'],
+            'meals' => [['breakfast' => '08:00', 'lunch'=> '12:00', 'dinner' => '20:00']],
         ]);
 
         $user->insulineSettings()
