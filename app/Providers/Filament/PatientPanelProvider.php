@@ -43,6 +43,7 @@ class PatientPanelProvider extends PanelProvider
             ->registration(PatientRegister::class)
             ->profile(PatientProfile::class, isSimple: false)
             ->databaseNotifications()
+            ->databaseNotificationsPolling("2s")
             ->discoverResources(in: app_path('Filament/Patient/Resources'), for: 'App\\Filament\\Patient\\Resources')
             ->discoverPages(in: app_path('Filament/Patient/Pages'), for: 'App\\Filament\\Patient\\Pages')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')

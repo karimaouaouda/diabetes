@@ -34,6 +34,7 @@ class MedecinPanelProvider extends PanelProvider
             ->login()
             ->registration(DoctorRegister::class)
             ->databaseNotifications()
+            ->databaseNotificationsPolling("2s")
             ->discoverResources(in: app_path('Filament/Medecin/Resources'), for: 'App\\Filament\\Medecin\\Resources')
             ->discoverPages(in: app_path('Filament/Medecin/Pages'), for: 'App\\Filament\\Medecin\\Pages')
             ->discoverPages(in: app_path('Filament/Shared/Pages'), for: 'App\\Filament\\Shared\\Pages')
