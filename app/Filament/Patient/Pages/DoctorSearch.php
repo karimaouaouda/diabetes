@@ -6,8 +6,10 @@ use App\Enums\FollowingStatus;
 use App\Models\Following;
 use App\Models\User;
 use App\Enums\UserRoles;
+use Filament\Notifications\Actions\Action;
 use Filament\Notifications\Notification;
 use Filament\Pages\Page;
+use Filament\Support\Colors\Color;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\On;
 use Livewire\WithPagination;
@@ -66,9 +68,15 @@ class DoctorSearch extends Page
             ->title("new follow request")
             ->body(sprintf("patient %s sent a follow request to you, tae an action", Auth::user()->name))
             ->info()
+            ->actions([
+                Action::make('view')
+                    ->url(route('filament.doctor.resources.patients.index'))
+                    ->color(Color::Green)
+                    ->openUrlInNewTab()
+            ])
             ->sendToDatabase(User::find($doctorId));
 
-        $this->redirectIntended(to_route("filament.patient.pages.dashboard"));
+        $this->redirectIntended(route("filament.patient.pages.dashboard"));
     }
 
     private function notify(string $type, string $title, ?string $body = null): void
