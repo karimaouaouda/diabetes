@@ -5,24 +5,28 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
 use App\Enums\UserRoles;
+use App\Observers\UserObserver;
 use App\Traits\CanHaveConversation;
+use App\Traits\HasAvatar;
 use App\Traits\HasDoctorRole;
 use App\Traits\HasPatientRole;
 use Filament\Models\Contracts\FilamentUser;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Filament\Panel;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
 
+#[ObservedBy(UserObserver::class)]
 class User extends Authenticatable implements FilamentUser
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory,
         Notifiable,
-        CanHaveConversation,
         HasDoctorRole,
+        HasAvatar,
         HasPatientRole;
 
     /**
@@ -32,6 +36,8 @@ class User extends Authenticatable implements FilamentUser
      */
     protected $fillable = [
         'name',
+        'gender',
+        'date_of_birth',
         'role',
         'email',
         'password',
@@ -84,7 +90,7 @@ class User extends Authenticatable implements FilamentUser
     } */
     public function patientProfile()
     {
-        return $this->hasOne(PatientProfile::class);
+        return $this->hasOne(PatientProfile::class, 'patient_id');
     }
 
 

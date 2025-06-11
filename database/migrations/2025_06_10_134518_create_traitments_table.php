@@ -9,19 +9,17 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up()
+    public function up(): void
     {
-        Schema::create('patient_profiles', function (Blueprint $table) {
+        Schema::create('treatments', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('doctor_id')
+                ->constrained('users')
+                ->cascadeOnDelete();
             $table->foreignId('patient_id')
                 ->constrained('users')
                 ->cascadeOnDelete();
-            $table->string('blood_type');
-            $table->decimal('height');
-            $table->decimal('weight');
-            $table->json('meals')
-                ->nullable();
-            $table->text('allergies')->nullable();
+
             $table->timestamps();
         });
     }
@@ -31,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('patient_profiles');
+        Schema::dropIfExists('treatments');
     }
 };

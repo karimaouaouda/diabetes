@@ -9,11 +9,13 @@ class PatientInsulinChart extends ChartWidget
 {
     public ?int $patientId = null;
 
+    protected static bool $isLazy = false;
+
     protected static ?string $heading = "Historique des doses d'insuline";
 
     protected function getData(): array
     {
-        $records = DoseInsuline::where('patient_id', $this->patientId)
+        $records = DoseInsuline::where('patient_id', 2)
             ->orderBy('date_heure')
             ->take(10)
             ->get();

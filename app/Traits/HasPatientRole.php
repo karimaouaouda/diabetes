@@ -3,6 +3,7 @@
 namespace App\Traits;
 
 use App\Enums\UserRoles;
+use App\Models\Treatment;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
@@ -18,7 +19,11 @@ trait HasPatientRole
 
     public function treatments() : HasMany
     {
-        //
+        return $this->hasMany(Treatment::class, 'patient_id');
+    }
+
+    public function getHourFor($at){
+        return 8;
     }
 
 

@@ -6,8 +6,10 @@ use App\Enums\FollowingStatus;
 use App\Models\Following;
 use App\Models\User;
 use App\Enums\UserRoles;
+use Filament\Notifications\Notification;
 use Filament\Pages\Page;
 use Illuminate\Support\Facades\Auth;
+use Livewire\Attributes\On;
 use Livewire\WithPagination;
 
 class DoctorSearch extends Page
@@ -15,9 +17,20 @@ class DoctorSearch extends Page
     use WithPagination;
 
     protected static ?string $navigationLabel = 'Trouver un médecin';
+
     protected static ?string $title = 'Recherche de médecins';
     protected static ?string $slug = 'doctor-search';
+
+    protected static ?string $navigationIcon = 'heroicon-o-user-group';
+
     protected static string $view = 'filament.patient.pages.doctor-search';
+
+    public function mount(){
+        if( Following::where('patient_id', Auth::id())->exists() ){
+            $this->notify('danger', 'Vous avez déjà une demande en cours ou un médecin.');
+            $this->dispatch('cannot-access');
+        }
+    }
 
     public string $search = '';
 
@@ -28,6 +41,11 @@ class DoctorSearch extends Page
                 $query->where('name', 'like', "%{$this->search}%")
                     ->orWhere('email', 'like', "%{$this->search}%");
             })->paginate(8);
+    }
+
+    #[On('cannot-access')]
+    public function back(){
+        $this->redirectIntended(route("filament.patient.pages.dashboard"));
     }
 
     public function requestFollow(int $doctorId): void
@@ -44,5 +62,19 @@ class DoctorSearch extends Page
         ]);
 
         $this->notify('success', 'Demande envoyée.');
+
+        $this->redirectIntended(to_route("filament.patient.pages.dashboard"));
+    }
+
+    private function notify(string $type, string $title, ?string $body = null): void
+    {
+        $notification = Notification::make()
+                            ->{$type}()
+                            ->title($title);
+
+        if( $body ){
+            $notification->body($body);
+        }
+        $notification->send();
     }
 }

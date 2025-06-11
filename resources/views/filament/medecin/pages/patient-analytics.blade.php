@@ -5,11 +5,9 @@
             @php($profile = $this->record->patientProfile)
             @if($profile)
                 <p>Date de naissance : {{ \Carbon\Carbon::parse($profile->date_of_birth)->format('d/m/Y') }}</p>
-                <p>Genre : {{ $profile->gender }}</p>
+                <p>Genre : {{ $this->record->gender }}</p>
                 <p>Taille : {{ $profile->height }} cm</p>
                 <p>Poids : {{ $profile->weight }} kg</p>
-                <p>Antécédents médicaux : {{ $profile->medical_history }}</p>
-                <p>Allergies : {{ $profile->allergies }}</p>
             @endif
         </div>
 
@@ -39,9 +37,10 @@
             </table>
         </div>
 
+
+        {{ $this->form }}
         <div class="bg-white rounded-lg shadow p-6">
             <h3 class="text-lg font-medium text-gray-900 mb-4">Évolution glycémique</h3>
-            <livewire:filament.medecin.widgets.patient-glycemie-chart :patient-id="$this->record->id" />
         </div>
 
         <div class="bg-white rounded-lg shadow overflow-hidden">
@@ -68,11 +67,10 @@
 
         <div class="bg-white rounded-lg shadow p-6">
             <h3 class="text-lg font-medium text-gray-900 mb-4">Historique des doses d'insuline</h3>
-            <livewire:filament.medecin.widgets.patient-insulin-chart :patient-id="$this->record->id" />
         </div>
 
         <div class="flex justify-end">
-            <x-filament::button tag="a" href="{{ route('filament.doctor.pages.chat') }}">
+            <x-filament::button tag="a" href="{{ route('chatify') }}">
                 Contacter le patient
             </x-filament::button>
         </div>

@@ -6,7 +6,9 @@ use App\Enums\FollowingStatus;
 use App\Filament\Medecin\Resources\PatientResource\Pages;
 use App\Filament\Medecin\Resources\PatientResource\Pages\PatientAnalytics;
 use App\Models\Following;
+use Filament\Facades\Filament;
 use Filament\Forms\Form;
+use Filament\Notifications\Notification;
 use Filament\Resources\Resource;
 use Filament\Tables\Actions\Action;
 use Filament\Tables\Columns\TextColumn;
@@ -37,7 +39,14 @@ class PatientResource extends Resource
                 Action::make('accept')
                     ->label('Accepter')
                     ->visible(fn (Following $record) => $record->status === FollowingStatus::PENDING)
-                    ->action(fn (Following $record) => $record->update(['status' => FollowingStatus::ACCEPTED])),
+                    ->action(function(Following $record) {
+                        $record->update(['status' => FollowingStatus::ACCEPTED]);
+                        Notification::make()
+                            ->title('you are accepted !')
+                            ->success()
+                            ->body(sprintf("doctor %s just accepted you as his patient", Filament::auth()->user()->name))
+                            ->sendToDatabase($record->patient);
+                    }),
                 Action::make('reject')
                     ->label('Rejeter')
                     ->color('danger')

@@ -2,7 +2,7 @@
 
 namespace App\Enums;
 
-enum InformationOrder : string
+enum MedicationTime : string
 {
     case BEFORE_BREAKFAST = 'BEFORE_BREAKFAST';
 
@@ -16,9 +16,16 @@ enum InformationOrder : string
 
     case AFTER_DINNER = 'AFTER_DINNER';
 
+    case MIDDLE_BREAKFAST = 'MIDDLE_BREAKFAST';
+
+    case MIDDLE_LUNCH = 'MIDDLE_LUNCH';
+
+    case MIDDLE_DINNER = 'MIDDLE_DINNER';
 
 
-    public static function values(){
+
+    public static function values(): array
+    {
         $values = [];
 
         foreach(static::cases() as $case){

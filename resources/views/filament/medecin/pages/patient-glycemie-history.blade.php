@@ -10,7 +10,7 @@
             <div class="bg-white rounded-lg shadow overflow-hidden">
                 <div class="p-6">
                     <h3 class="text-lg font-medium text-gray-900">
-                        Historique glycémique de {{ Patient::find($this->patientId)->name }}
+                        Historique glycémique de {{ \App\Models\User::find($this->patientId)->name }}
                     </h3>
                 </div>
 

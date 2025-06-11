@@ -2,8 +2,8 @@
 
 namespace App\Filament\Medecin\Pages;
 
-use App\Models\Patient;
-use App\Models\Glycemie;
+use App\Models\Glycemies;
+use App\Models\User;
 use Filament\Forms\Components\Select;
 use Filament\Pages\Page;
 use Filament\Tables\Columns\TextColumn;
@@ -22,13 +22,13 @@ class PatientGlycemieHistory extends Page implements HasTable
     protected static ?string $title = 'Suivi Glycémique des Patients';
     protected static ?string $slug = 'patient-glycemie-history';
 
-    public $patientId;
+    public $patientId = 2;
 
     public function table(Table $table): Table
     {
         return $table
             ->query(
-                Glycemie::query()
+                Glycemies::query()
                     ->when($this->patientId, fn ($query) => $query->where('patient_id', $this->patientId)))
             ->columns([
                 TextColumn::make('date_mesure')
@@ -73,7 +73,7 @@ class PatientGlycemieHistory extends Page implements HasTable
         return [
             Select::make('patientId')
                 ->label('Sélectionner un patient')
-                ->options(Patient::all()->pluck('name', 'id'))
+                ->options(User::all()->pluck('name', 'id'))
                 ->searchable()
                 ->required()
                 ->reactive()
@@ -84,7 +84,7 @@ class PatientGlycemieHistory extends Page implements HasTable
 
 public function getGlycemieDates(): array
 {
-    return Glycemie::where('patient_id', $this->patientId)
+    return Glycemies::where('patient_id', $this->patientId)
         ->orderBy('date_mesure')
         ->get()
         ->map(fn ($item) => $item->date_mesure->format('d/m/Y'))
@@ -93,7 +93,7 @@ public function getGlycemieDates(): array
 
 public function getGlycemieValues(): array
 {
-    return Glycemie::where('patient_id', $this->patientId)
+    return Glycemies::where('patient_id', $this->patientId)
         ->orderBy('date_mesure')
         ->pluck('valeur')
         ->toArray();

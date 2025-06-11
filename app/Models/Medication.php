@@ -3,18 +3,21 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Medication extends Model
 {
-    // app/Models/Medication.php
-    protected $casts = [
-        'times' => 'array',
-        'start_date' => 'date',
-        'end_date' => 'date'
+
+    protected $fillable = [
+        'doctor_id',
+        'name',
+        'description',
+        'dose',
     ];
 
-    public function patient()
+
+    public function doctor(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'patient_id');
+        return $this->belongsTo(User::class, 'doctor_id');
     }
 }

@@ -3,20 +3,18 @@
 namespace App\Providers\Filament;
 
 use App\Filament\Patient\Pages\Auth\PatientRegister;
-use App\Filament\Shared\Pages\Chat;
+use App\Filament\Patient\Pages\PatientProfile;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
 use Filament\Pages;
-use App\Filament\Pages\PatientDiabetesTools;
 use Filament\Panel;
 use Filament\PanelProvider;
 use Filament\Support\Colors\Color;
 use Filament\Widgets;
 use Filament\Support\Facades\FilamentIcon;
 use App\Filament\Patient\Pages\CalculInsuline;
-//use App\Filament\Patient\Pages\pages\SaisieGlycemie;
 
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Cookie\Middleware\EncryptCookies;
@@ -38,8 +36,12 @@ class PatientPanelProvider extends PanelProvider
             ->colors([
                 'primary' => Color::Sky,
             ])
+            ->icons([
+                'heroicon-o-chat'
+            ])
             ->login()
             ->registration(PatientRegister::class)
+            ->profile(PatientProfile::class, isSimple: false)
             ->databaseNotifications()
             ->discoverResources(in: app_path('Filament/Patient/Resources'), for: 'App\\Filament\\Patient\\Resources')
             ->discoverPages(in: app_path('Filament/Patient/Pages'), for: 'App\\Filament\\Patient\\Pages')
@@ -47,16 +49,10 @@ class PatientPanelProvider extends PanelProvider
             ->discoverPages(in: app_path('Filament/Shared/Pages'), for: 'App\\Filament\\Shared\\Pages')
             ->pages([
                 Pages\Dashboard::class,
-               Chat::class,
-               // Pages\SaisieGlycemie::class,
-              // Pages\HistoriqueMedical::class,
-             // PatientProfile::class,
-             CalculInsuline::class,
+                CalculInsuline::class,
             ])
             ->discoverWidgets(in: app_path('Filament/Patient/Widgets'), for: 'App\\Filament\\Patient\\Widgets')
             ->widgets([
-                Widgets\AccountWidget::class,
-                Widgets\FilamentInfoWidget::class,
             ])
             ->middleware([
                 EncryptCookies::class,

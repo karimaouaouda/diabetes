@@ -5,7 +5,6 @@ namespace App\Providers\Filament;
 use App\Filament\Medecin\Pages\DoctorRegister;
 use app\Filament\Medecin\Pages\PatientGlycemieHistory;
 use App\Filament\Medecin\Resources\PatientResource\Pages\PatientAnalytics;
-use App\Filament\Shared\Pages\Chat;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -34,12 +33,12 @@ class MedecinPanelProvider extends PanelProvider
             ])
             ->login()
             ->registration(DoctorRegister::class)
+            ->databaseNotifications()
             ->discoverResources(in: app_path('Filament/Medecin/Resources'), for: 'App\\Filament\\Medecin\\Resources')
             ->discoverPages(in: app_path('Filament/Medecin/Pages'), for: 'App\\Filament\\Medecin\\Pages')
             ->discoverPages(in: app_path('Filament/Shared/Pages'), for: 'App\\Filament\\Shared\\Pages')
             ->pages([
                 Pages\Dashboard::class,
-                Chat::class,
                 PatientGlycemieHistory::class,
                 PatientAnalytics::class,
             ])

@@ -1,5 +1,6 @@
 <x-filament-panels::page>
-    <div class="flex justify-around flex-wrap w-full">
+    @vite('resources/css/app.css')
+    <div class="flex justify-around flex-wrap w-full gap-2">
         @for($i = 0; $i < 5; $i++)
             <x-meal-card :meall="null" />
         @endfor

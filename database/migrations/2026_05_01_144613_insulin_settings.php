@@ -15,16 +15,24 @@ return new class extends Migration
     {
         Schema::create('insulin_settings', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->float('target_glucose')->default(120); // Glycémie cible en mg/dL
-            $table->float('correction_factor')->default(50); // Facteur de correction en mg/dL par unité
-            $table->float('carb_ratio')->default(10); // Ratio glucides en g par unité
-            $table->integer('insulin_duration')->default(3); // Durée d'action de l'insuline en heures
-            $table->integer('active_insulin_time')->default(4); // Temps d'insuline active en heures
+            $table->foreignId('patient_id')
+                ->constrained('users')
+                ->cascadeOnDelete();
+            $table->foreignId('doctor_id')
+                ->nullable()
+                ->constrained('users')
+                ->cascadeOnDelete();
+            $table->float('target_glucose')
+                ->default(120); // Glycémie cible en mg/dL
+            $table->float('correction_factor')
+                ->default(50); // Facteur de correction en mg/dL par unité
+            $table->float('carb_ratio')
+                ->default(10); // Ratio glucides en g par unité
+            $table->float('danger_max_bound')
+                ->default(70);
+            $table->float('danger_min_bound')
+                ->default(70);
             $table->timestamps();
-
-            // Un utilisateur ne peut avoir qu'un seul enregistrement de paramètres
-            $table->unique('user_id');
         });
     }
 

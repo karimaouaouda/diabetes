@@ -9,6 +9,8 @@ use Illuminate\Http\Request;
 class CalculInsuline extends Page
 {
     protected static string $view = 'filament.patient.pages.calcul-insuline';
+
+    protected static ?string $navigationIcon = 'heroicon-o-calculator';
     protected static ?string $navigationLabel = 'Calculateur d\'Insuline';
 
     public $blood_glucose;
