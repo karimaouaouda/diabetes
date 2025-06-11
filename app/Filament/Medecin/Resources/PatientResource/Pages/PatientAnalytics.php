@@ -23,12 +23,17 @@ use Filament\Support\Colors\Color;
 use Filament\Support\Exceptions\Halt;
 use Filament\Support\Facades\FilamentView;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Concerns\InteractsWithTable;
+use Filament\Tables\Contracts\HasTable;
+use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\Relation;
 use function Filament\Support\is_app_url;
 
-class PatientAnalytics extends ViewRecord implements HasForms
+class PatientAnalytics extends ViewRecord implements HasForms, HasTable
 {
-    use InteractsWithForms, CanUseDatabaseTransactions;
+    use InteractsWithForms, CanUseDatabaseTransactions, InteractsWithTable;
 
     protected static string $resource = PatientResource::class;
     protected static ?string $navigationIcon = 'heroicon-o-chart-bar';
@@ -42,6 +47,19 @@ class PatientAnalytics extends ViewRecord implements HasForms
     protected static bool $shouldRegisterNavigation = false;
 
     public array $settings = [];
+
+
+    public function mount(int|string $record): void
+    {
+        $this->record = User::query()->findOrFail($record);
+
+        $this->authorizeAccess();
+
+        if (! $this->hasInfolist()) {
+            $this->fillForm();
+        }
+
+    }
 
 
 
@@ -188,17 +206,7 @@ class PatientAnalytics extends ViewRecord implements HasForms
         ];
     }
 
-    public function mount(int|string $record): void
-    {
-        $this->record = User::query()->findOrFail($record);
 
-        $this->authorizeAccess();
-
-        if (! $this->hasInfolist()) {
-            $this->fillForm();
-        }
-
-    }
 
     public function getModel(): string
     {
@@ -223,6 +231,22 @@ class PatientAnalytics extends ViewRecord implements HasForms
             ->orderByDesc('date_heure')
             ->take(10)
             ->get();
+    }
+
+    public function getTableQuery(): Builder | Relation | null
+    {
+        return Glycemies::query()->where('patient_id', $this->record->getAttribute('id'));
+    }
+
+    public function table(Table $table): Table
+    {
+        return $table
+            ->query($this->getTableQuery())
+            ->columns([
+                TextColumn::make('id')
+                    ->badge()
+                    ->prefix("#")
+            ]);
     }
 
 }

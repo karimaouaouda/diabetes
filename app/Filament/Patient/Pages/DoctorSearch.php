@@ -62,6 +62,11 @@ class DoctorSearch extends Page
         ]);
 
         $this->notify('success', 'Demande envoyée.');
+        Notification::make()
+            ->title("new follow request")
+            ->body(sprintf("patient %s sent a follow request to you, tae an action", Auth::user()->name))
+            ->info()
+            ->sendToDatabase(User::find($doctorId));
 
         $this->redirectIntended(to_route("filament.patient.pages.dashboard"));
     }
