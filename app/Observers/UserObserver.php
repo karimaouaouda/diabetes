@@ -87,7 +87,7 @@ class UserObserver
             ->body("we fill your information by default, please recheck them")
             ->actions([
                 Action::make('view')
-                    ->url(to_route('filament.patient.auth.profile'))
+                    ->url(route('filament.patient.auth.profile'))
                     ->openUrlInNewTab()
             ])
             ->send()
