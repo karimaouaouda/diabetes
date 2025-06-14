@@ -35,6 +35,11 @@ class TreatmentResource extends Resource
         return false;
     }
 
+    public static function getEloquentQuery(): Builder
+    {
+        return Treatment::query()->where('patient_id', auth()->id());
+    }
+
     public static function form(Form $form): Form
     {
         return $form
@@ -47,13 +52,35 @@ class TreatmentResource extends Resource
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\TextColumn::make('id')
+                    ->label('ID')
+                    ->badge()
+                    ->color('blue')
+                    ->prefix("#"),
+                Tables\Columns\TextColumn::make('doctor.name')
+                    ->label('Doctor Name'),
+                Tables\Columns\TextColumn::make('medications_count')
+                    ->label('Count of Medications')
+                    ->counts('medications'),
+                Tables\Columns\TextColumn::make('created_at')
+                    ->label('Created At')
+                    ->dateTime(),
             ])
             ->filters([
                 //
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\Action::make('viewMedications')
+                    ->label('View Medications')
+                    ->icon('heroicon-o-eye')
+                    ->modalHeading(fn(Treatment $record) => 'Medications for Treatment #' . $record->id)
+                    ->modal()
+                    ->modalContent(function(Treatment $record){
+                        return view('filament.medecin.treatment.view-medications', [
+                            'medications' => $record->medications,
+                        ]);
+                    })
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

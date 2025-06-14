@@ -79,26 +79,19 @@ class User extends Authenticatable implements FilamentUser
     }
 
 
-    public function dosesInsuline(){
-        return $this->hasMany(DoseInsuline::class);
-    }
+
 
 
     /* public function canAccessPanel(Panel $panel): bool
     {
         return $;
     } */
-    public function patientProfile()
+
+
+
+
+    public function followings(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
-        return $this->hasOne(PatientProfile::class, 'patient_id');
-    }
-
-
-    public function information(){
-        return $this->hasMany(Information::class, 'patient_id');
-    }
-
-    public function followings(){
         return $this->belongsToMany(User::class, 'followings', 'patient_id');
     }
 

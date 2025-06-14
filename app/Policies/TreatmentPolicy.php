@@ -6,7 +6,7 @@ use App\Models\Treatment;
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
 
-class TraitmentPolicy
+class TreatmentPolicy
 {
     /**
      * Determine whether the user can view any models.
@@ -19,7 +19,7 @@ class TraitmentPolicy
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user, Treatment $traitment): bool
+    public function view(User $user, Treatment $treatment): bool
     {
         return true;
     }
@@ -29,38 +29,38 @@ class TraitmentPolicy
      */
     public function create(User $user): bool
     {
-        return true;
+        return $user->isDoctor();
     }
 
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, Treatment $traitment): bool
+    public function update(User $user, Treatment $treatment): bool
     {
-        return true;
+        return $user->isDoctor() && $treatment->doctor()->is($user);
     }
 
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, Treatment $traitment): bool
+    public function delete(User $user, Treatment $treatment): bool
     {
-        return true;
+        return $this->update($user, $treatment);
     }
 
     /**
      * Determine whether the user can restore the model.
      */
-    public function restore(User $user, Treatment $traitment): bool
+    public function restore(User $user, Treatment $treatment): bool
     {
-        return true;
+        return $this->update($user, $treatment);
     }
 
     /**
      * Determine whether the user can permanently delete the model.
      */
-    public function forceDelete(User $user, Treatment $traitment): bool
+    public function forceDelete(User $user, Treatment $treatment): bool
     {
-        return true;
+        return $this->update($user, $treatment);
     }
 }

@@ -21,6 +21,11 @@ class TreatmentResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
+    public static function getEloquentQuery(): Builder
+    {
+        return Treatment::query()->where('doctor_id', auth()->id());
+    }
+
     public static function form(Form $form): Form
     {
         return $form
@@ -65,17 +70,48 @@ class TreatmentResource extends Resource
             ])->columns(1);
     }
 
+    /**
+     * @throws \Exception
+     */
     public static function table(Table $table): Table
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\BadgeColumn::make('id')
+                    ->label('ID')
+                    ->color('blue')
+                    ->prefix('#'),
+                Tables\Columns\TextColumn::make('patient.name')
+                    ->label('Target Patient Name')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('created_at')
+                    ->label('Date/Time of Creation')
+                    ->dateTime(),
+                Tables\Columns\TextColumn::make('medications_count')
+                    ->label('Medications Count')
+                    ->counts('medications')
+                    ->sortable(),
             ])
             ->filters([
-                //
+
+                Tables\Filters\SelectFilter::make('patient_id')
+                    ->label('Patient')
+                    ->multiple()
+                    ->options(fn() => Auth::user()->patients()->pluck('users.name', 'users.id')->toArray())
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
+                Tables\Actions\Action::make('viewMedications')
+                    ->label('View Medications')
+                    ->icon('heroicon-o-eye')
+                    ->modalHeading(fn(Treatment $record) => 'Medications for Treatment #' . $record->id)
+                    ->modal()
+                    ->modalContent(function(Treatment $record){
+                        return view('filament.medecin.treatment.view-medications', [
+                            'medications' => $record->medications,
+                        ]);
+                    })
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
