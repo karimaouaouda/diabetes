@@ -39,7 +39,7 @@
         }
 
         body {
-            font-family: 'Roboto', 'Arial', sans-serif;
+            font-family: 'Tajawal', 'Arial', sans-serif;
             background-color: var(--gray-100);
             color: var(--gray-800);
             line-height: 1.5;
@@ -98,7 +98,7 @@
         }
 
         .search-input {
-            padding: 0.5rem 2.5rem 0.5rem 1rem;
+            padding: 0.5rem 1rem 0.5rem 2.5rem;
             border: 1px solid var(--gray-300);
             border-radius: 0.5rem;
             outline: none;
@@ -171,14 +171,9 @@
             border-color: var(--primary-400);
         }
 
-        .filter-btn-icon {
-            width: 1rem;
-            height: 1rem;
-        }
-
         .meals-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
             gap: 1.5rem;
         }
 
@@ -188,6 +183,7 @@
             overflow: hidden;
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
             transition: transform 0.2s, box-shadow 0.2s;
+            position: relative;
         }
 
         .meal-card:hover {
@@ -223,29 +219,107 @@
             -webkit-box-orient: vertical;
         }
 
-        .meal-meta {
+        .carbs-info {
+            background-color: var(--gray-50);
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border: 1px solid var(--gray-200);
+        }
+
+        .carbs-per-gram {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.75rem;
+            font-size: 0.875rem;
+            color: var(--gray-600);
+        }
+
+        .carbs-per-gram-value {
+            font-weight: 600;
+            color: var(--primary-700);
+        }
+
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .quantity-label {
+            font-size: 0.875rem;
+            color: var(--gray-600);
+            min-width: 60px;
+        }
+
+        .quantity-input-group {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            flex: 1;
+        }
+
+        .quantity-btn {
+            width: 2rem;
+            height: 2rem;
+            border: 1px solid var(--primary-300);
+            background-color: white;
+            border-radius: 0.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: var(--primary-600);
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.2s;
+        }
+
+        .quantity-btn:hover {
+            background-color: var(--primary-50);
+            border-color: var(--primary-400);
+        }
+
+        .quantity-btn:active {
+            background-color: var(--primary-100);
+        }
+
+        .quantity-input {
+            width: 4rem;
+            padding: 0.25rem 0.5rem;
+            border: 1px solid var(--gray-300);
+            border-radius: 0.25rem;
+            text-align: center;
+            font-family: inherit;
+            font-size: 0.875rem;
+        }
+
+        .quantity-input:focus {
+            outline: none;
+            border-color: var(--primary-400);
+            box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2);
+        }
+
+        .total-carbs {
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding-top: 0.75rem;
             border-top: 1px solid var(--gray-200);
-        }
-
-        .carbs-indicator {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
             font-weight: 600;
         }
 
-        .carbs-label {
-            color: var(--gray-600);
+        .total-carbs-label {
+            color: var(--gray-700);
             font-size: 0.875rem;
         }
 
-        .carbs-value {
+        .total-carbs-value {
             color: var(--primary-700);
-            font-size: 1rem;
+            font-size: 1.125rem;
+            font-weight: 700;
         }
 
         .carbs-badge {
@@ -273,29 +347,16 @@
             color: var(--red-500);
         }
 
-        .meal-actions {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .meal-btn {
-            border: none;
-            background-color: transparent;
-            cursor: pointer;
-            color: var(--gray-500);
-            width: 2rem;
-            height: 2rem;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.2s;
-        }
-
-        .meal-btn:hover {
-            background-color: var(--gray-100);
-            color: var(--gray-700);
+        .meal-tag {
+            position: absolute;
+            top: 0.5rem;
+            left: 0.5rem;
+            background-color: rgba(0, 0, 0, 0.6);
+            color: white;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+            font-size: 0.75rem;
+            font-weight: 600;
         }
 
         .add-meal-btn {
@@ -315,57 +376,6 @@
 
         .add-meal-btn:hover {
             background-color: var(--primary-700);
-        }
-
-        .pagination {
-            margin-top: 2rem;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .page-btn {
-            width: 2.5rem;
-            height: 2.5rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 1px solid var(--gray-300);
-            border-radius: 0.5rem;
-            background-color: white;
-            color: var(--gray-700);
-            font-family: inherit;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .page-btn.active {
-            background-color: var(--primary-600);
-            border-color: var(--primary-600);
-            color: white;
-        }
-
-        .page-btn:hover:not(.active) {
-            border-color: var(--primary-400);
-            color: var(--primary-600);
-        }
-
-        .meal-tag {
-            position: absolute;
-            top: 0.5rem;
-            left: 0.5rem;
-            background-color: rgba(0, 0, 0, 0.6);
-            color: white;
-            padding: 0.25rem 0.5rem;
-            border-radius: 0.25rem;
-            font-size: 0.75rem;
-            font-weight: 600;
-        }
-
-        .meal-card {
-            position: relative;
         }
 
         @media (max-width: 768px) {
@@ -405,7 +415,7 @@
                             <line x1="14" y1="1" x2="14" y2="4"></line>
                         </svg>
                     </div>
-                    <span>Algerian Kitchen</span>
+                    <span>Algerian Cuisine</span>
                 </div>
                 <div class="header-actions">
                     <div class="search-container">
@@ -425,7 +435,7 @@
     <main class="main-content">
         <div class="container">
             <div class="dashboard-header">
-                <h1 class="dashboard-title">Popular Algerian & International Meals - Carbohydrate Content</h1>
+                <h1 class="dashboard-title">Popular Meals - Carbohydrate Content</h1>
                 <button class="add-meal-btn">
                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <line x1="12" y1="5" x2="12" y2="19"></line>
@@ -435,619 +445,265 @@
                 </button>
             </div>
 
-            <div class="filters">
-                <button class="filter-btn active">All Meals</button>
-                <button class="filter-btn">
-                    <span>Low Carb</span>
-                    <svg class="filter-btn-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <polyline points="6 9 12 15 18 9"></polyline>
-                    </svg>
-                </button>
-                <button class="filter-btn">
-                    <span>Main Dishes</span>
-                    <svg class="filter-btn-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <polyline points="6 9 12 15 18 9"></polyline>
-                    </svg>
-                </button>
-                <button class="filter-btn">
-                    <span>Desserts</span>
-                    <svg class="filter-btn-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <polyline points="6 9 12 15 18 9"></polyline>
-                    </svg>
-                </button>
-                <button class="filter-btn">
-                    <span>Algerian</span>
-                    <svg class="filter-btn-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <polyline points="6 9 12 15 18 9"></polyline>
-                    </svg>
-                </button>
-                <button class="filter-btn">
-                    <span>International</span>
-                    <svg class="filter-btn-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <polyline points="6 9 12 15 18 9"></polyline>
-                    </svg>
-                </button>
-            </div>
-
             <div class="meals-grid">
-                <!-- Algerian Meals -->
-
-                <!-- Couscous -->
+                <!-- Traditional Couscous -->
                 <div class="meal-card">
                     <span class="meal-tag">Algerian</span>
-                    <img src="/api/placeholder/400/200" alt="Couscous" class="meal-image">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6d/Couscous-1.jpg" alt="Couscous" class="meal-image">
                     <div class="meal-content">
                         <h3 class="meal-title">Traditional Couscous</h3>
                         <p class="meal-description">Traditional couscous with meat and vegetables, one of the most famous Algerian dishes</p>
-                        <div class="meal-meta">
-                            <div class="carbs-indicator">
-                                <span class="carbs-label">Carbs:</span>
-                                <span class="carbs-value">45g</span>
+
+                        <div class="carbs-info">
+                            <div class="carbs-per-gram">
+                                <span>Carbs per 100g:</span>
+                                <span class="carbs-per-gram-value">23g</span>
                             </div>
-                            <div class="carbs-badge carbs-medium">Medium</div>
+
+                            <div class="quantity-controls">
+                                <span class="quantity-label">Quantity:</span>
+                                <div class="quantity-input-group">
+                                    <button class="quantity-btn" onclick="decreaseQuantity(this)">-</button>
+                                    <input type="number" class="quantity-input" value="100" min="1" onchange="updateTotalCarbs(this)">
+                                    <button class="quantity-btn" onclick="increaseQuantity(this)">+</button>
+                                    <span style="font-size: 0.875rem; color: var(--gray-600);">g</span>
+                                </div>
+                            </div>
+
+                            <div class="total-carbs">
+                                <span class="total-carbs-label">Total Carbs:</span>
+                                <span class="total-carbs-value">23g</span>
+                            </div>
                         </div>
+
+                        <div class="carbs-badge carbs-medium">Medium</div>
                     </div>
                 </div>
 
                 <!-- Chakhchoukha -->
                 <div class="meal-card">
                     <span class="meal-tag">Algerian</span>
-                    <img src="/api/placeholder/400/200" alt="Chakhchoukha" class="meal-image">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Chakhchoukha.jpg" alt="Chakhchoukha" class="meal-image">
                     <div class="meal-content">
                         <h3 class="meal-title">Chakhchoukha</h3>
-                        <p class="meal-description">Traditional Chakhchoukha with broth and spices, a famous dish from eastern Algeria</p>
-                        <div class="meal-meta">
-                            <div class="carbs-indicator">
-                                <span class="carbs-label">Carbs:</span>
-                                <span class="carbs-value">35g</span>
-                            </div>
-                            <div class="carbs-badge carbs-medium">Medium</div>
-                        </div>
-                    </div>
-                </div>
+                        <p class="meal-description">Traditional dish with broth and spices, famous from eastern Algeria</p>
 
-                <!-- Shorba -->
-                <div class="meal-card">
-                    <span class="meal-tag">Algerian</span>
-                    <img src="/api/placeholder/400/200" alt="Shorba" class="meal-image">
-                    <div class="meal-content">
-                        <h3 class="meal-title">Freekeh Soup</h3>
-                        <p class="meal-description">Traditional Freekeh soup, essential on the Ramadan table</p>
-                        <div class="meal-meta">
-                            <div class="carbs-indicator">
-                                <span class="carbs-label">Carbs:</span>
-                                <span class="carbs-value">20g</span>
+                        <div class="carbs-info">
+                            <div class="carbs-per-gram">
+                                <span>Carbs per 100g:</span>
+                                <span class="carbs-per-gram-value">18g</span>
                             </div>
-                            <div class="carbs-badge carbs-low">Low</div>
-                        </div>
-                    </div>
-                </div>
 
-                <!-- Bourek -->
-                <div class="meal-card">
-                    <span class="meal-tag">Algerian</span>
-                    <img src="/api/placeholder/400/200" alt="Bourek" class="meal-image">
-                    <div class="meal-content">
-                        <h3 class="meal-title">Meat Bourek</h3>
-                        <p class="meal-description">Crispy bourek stuffed with minced meat and spices</p>
-                        <div class="meal-meta">
-                            <div class="carbs-indicator">
-                                <span class="carbs-label">Carbs:</span>
-                                <span class="carbs-value">30g</span>
+                            <div class="quantity-controls">
+                                <span class="quantity-label">Quantity:</span>
+                                <div class="quantity-input-group">
+                                    <button class="quantity-btn" onclick="decreaseQuantity(this)">-</button>
+                                    <input type="number" class="quantity-input" value="100" min="1" onchange="updateTotalCarbs(this)">
+                                    <button class="quantity-btn" onclick="increaseQuantity(this)">+</button>
+                                    <span style="font-size: 0.875rem; color: var(--gray-600);">g</span>
+                                </div>
                             </div>
-                            <div class="carbs-badge carbs-medium">Medium</div>
-                        </div>
-                    </div>
-                </div>
 
-                <!-- Grilled Meat -->
-                <div class="meal-card">
-                    <span class="meal-tag">Algerian</span>
-                    <img src="/api/placeholder/400/200" alt="Grilled Meat" class="meal-image">
-                    <div class="meal-content">
-                        <h3 class="meal-title">Grilled Lamb</h3>
-                        <p class="meal-description">Grilled lamb with traditional Algerian spices</p>
-                        <div class="meal-meta">
-                            <div class="carbs-indicator">
-                                <span class="carbs-label">Carbs:</span>
-                                <span class="carbs-value">0g</span>
+                            <div class="total-carbs">
+                                <span class="total-carbs-label">Total Carbs:</span>
+                                <span class="total-carbs-value">18g</span>
                             </div>
-                            <div class="carbs-badge carbs-low">Low</div>
                         </div>
+
+                        <div class="carbs-badge carbs-medium">Medium</div>
                     </div>
                 </div>
 
                 <!-- Makrout -->
                 <div class="meal-card">
                     <span class="meal-tag">Algerian</span>
-                    <img src="/api/placeholder/400/200" alt="Makrout" class="meal-image">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/3/3e/Makroudh.jpg" alt="Makrout" class="meal-image">
                     <div class="meal-content">
                         <h3 class="meal-title">Makrout</h3>
-                        <p class="meal-description">Traditional sweet made from dough and dates, dipped in honey</p>
-                        <div class="meal-meta">
-                            <div class="carbs-indicator">
-                                <span class="carbs-label">Carbs:</span>
-                                <span class="carbs-value">60g</span>
+                        <p class="meal-description">Traditional pastry with date filling, dipped in honey</p>
+
+                        <div class="carbs-info">
+                            <div class="carbs-per-gram">
+                                <span>Carbs per 100g:</span>
+                                <span class="carbs-per-gram-value">65g</span>
                             </div>
-                            <div class="carbs-badge carbs-high">High</div>
+
+                            <div class="quantity-controls">
+                                <span class="quantity-label">Quantity:</span>
+                                <div class="quantity-input-group">
+                                    <button class="quantity-btn" onclick="decreaseQuantity(this)">-</button>
+                                    <input type="number" class="quantity-input" value="50" min="1" onchange="updateTotalCarbs(this)">
+                                    <button class="quantity-btn" onclick="increaseQuantity(this)">+</button>
+                                    <span style="font-size: 0.875rem; color: var(--gray-600);">g</span>
+                                </div>
+                            </div>
+
+                            <div class="total-carbs">
+                                <span class="total-carbs-label">Total Carbs:</span>
+                                <span class="total-carbs-value">32.5g</span>
+                            </div>
                         </div>
+
+                        <div class="carbs-badge carbs-high">High</div>
                     </div>
                 </div>
 
-                <!-- Kalb El Louz -->
+                <!-- Grilled Lamb -->
                 <div class="meal-card">
                     <span class="meal-tag">Algerian</span>
-                    <img src="/api/placeholder/400/200" alt="Kalb El Louz" class="meal-image">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/8/8c/Mechoui.jpg" alt="Grilled Lamb" class="meal-image">
                     <div class="meal-content">
-                        <h3 class="meal-title">Kalb El Louz</h3>
-                        <p class="meal-description">Delicious dessert made from almonds and sugar</p>
-                        <div class="meal-meta">
-                            <div class="carbs-indicator">
-                                <span class="carbs-label">Carbs:</span>
-                                <span class="carbs-value">50g</span>
+                        <h3 class="meal-title">Grilled Lamb</h3>
+                        <p class="meal-description">Grilled lamb with traditional Algerian spices</p>
+
+                        <div class="carbs-info">
+                            <div class="carbs-per-gram">
+                                <span>Carbs per 100g:</span>
+                                <span class="carbs-per-gram-value">0g</span>
                             </div>
-                            <div class="carbs-badge carbs-high">High</div>
+
+                            <div class="quantity-controls">
+                                <span class="quantity-label">Quantity:</span>
+                                <div class="quantity-input-group">
+                                    <button class="quantity-btn" onclick="decreaseQuantity(this)">-</button>
+                                    <input type="number" class="quantity-input" value="150" min="1" onchange="updateTotalCarbs(this)">
+                                    <button class="quantity-btn" onclick="increaseQuantity(this)">+</button>
+                                    <span style="font-size: 0.875rem; color: var(--gray-600);">g</span>
+                                </div>
+                            </div>
+
+                            <div class="total-carbs">
+                                <span class="total-carbs-label">Total Carbs:</span>
+                                <span class="total-carbs-value">0g</span>
+                            </div>
                         </div>
+
+                        <div class="carbs-badge carbs-low">Low</div>
+                    </div>
+                </div>
+
+                <!-- Bourek -->
+                <div class="meal-card">
+                    <span class="meal-tag">Algerian</span>
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/9/9c/Bourek_Algerien.jpg" alt="Bourek" class="meal-image">
+                    <div class="meal-content">
+                        <h3 class="meal-title">Bourek with Meat</h3>
+                        <p class="meal-description">Crispy pastry filled with minced meat and spices</p>
+
+                        <div class="carbs-info">
+                            <div class="carbs-per-gram">
+                                <span>Carbs per 100g:</span>
+                                <span class="carbs-per-gram-value">25g</span>
+                            </div>
+
+                            <div class="quantity-controls">
+                                <span class="quantity-label">Quantity:</span>
+                                <div class="quantity-input-group">
+                                    <button class="quantity-btn" onclick="decreaseQuantity(this)">-</button>
+                                    <input type="number" class="quantity-input" value="80" min="1" onchange="updateTotalCarbs(this)">
+                                    <button class="quantity-btn" onclick="increaseQuantity(this)">+</button>
+                                    <span style="font-size: 0.875rem; color: var(--gray-600);">g</span>
+                                </div>
+                            </div>
+
+                            <div class="total-carbs">
+                                <span class="total-carbs-label">Total Carbs:</span>
+                                <span class="total-carbs-value">20g</span>
+                            </div>
+                        </div>
+
+                        <div class="carbs-badge carbs-medium">Medium</div>
                     </div>
                 </div>
 
                 <!-- Rechta -->
                 <div class="meal-card">
                     <span class="meal-tag">Algerian</span>
-                    <img src="/api/placeholder/400/200" alt="Rechta" class="meal-image">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/9/9d/Rechta.jpg" alt="Rechta" class="meal-image">
                     <div class="meal-content">
                         <h3 class="meal-title">Rechta</h3>
-                        <p class="meal-description">Traditional dish of handmade pasta with vegetables and meat</p>
-                        <div class="meal-meta">
-                            <div class="carbs-indicator">
-                                <span class="carbs-label">Carbs:</span>
-                                <span class="carbs-value">40g</span>
+                        <p class="meal-description">Traditional handmade pasta with vegetables and meat</p>
+
+                        <div class="carbs-info">
+                            <div class="carbs-per-gram">
+                                <span>Carbs per 100g:</span>
+                                <span class="carbs-per-gram-value">30g</span>
                             </div>
-                            <div class="carbs-badge carbs-medium">Medium</div>
+
+                            <div class="quantity-controls">
+                                <span class="quantity-label">Quantity:</span>
+                                <div class="quantity-input-group">
+                                    <button class="quantity-btn" onclick="decreaseQuantity(this)">-</button>
+                                    <input type="number" class="quantity-input" value="120" min="1" onchange="updateTotalCarbs(this)">
+                                    <button class="quantity-btn" onclick="increaseQuantity(this)">+</button>
+                                    <span style="font-size: 0.875rem; color: var(--gray-600);">g</span>
+                                </div>
+                            </div>
+
+                            <div class="total-carbs">
+                                <span class="total-carbs-label">Total Carbs:</span>
+                                <span class="total-carbs-value">36g</span>
+                            </div>
                         </div>
+
+                        <div class="carbs-badge carbs-medium">Medium</div>
                     </div>
                 </div>
-
-                <!-- Dolma -->
-                <div class="meal-card">
-                    <span class="meal-tag">Algerian</span>
-                    <img src="/api/placeholder/400/200" alt="Dolma" class="meal-image">
-                    <div class="meal-content">
-                        <h3 class="meal-title">Dolma</h3>
-                        <p class="meal-description">Stuffed vegetables with rice and minced meat in a tomato sauce</p>
-                        <div class="meal-meta">
-                            <div class="carbs-indicator">
-                                <span class="carbs-label">Carbs:</span>
-                                <span class="carbs-value">25g</span>
-                            </div>
-                            <div class="carbs-badge carbs-medium">Medium</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Berkoukes -->
-                <div class="meal-card">
-                    <span class="meal-tag">Algerian</span>
-                    <img src="/api/placeholder/400/200" alt="Berkoukes" class="meal-image">
-                    <div class="meal-content">
-                        <h3 class="meal-title">Berkoukes</h3>
-                        <p class="meal-description">Traditional dish with hand-rolled pasta pearls, vegetables and meat</p>
-                        <div class="meal-meta">
-                            <div class="carbs-indicator">
-                                <span class="carbs-label">Carbs:</span>
-                                <span class="carbs-value">45g</span>
-                            </div>
-                            <div class="carbs-badge carbs-medium">Medium</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Mhadjeb -->
-                <div class="meal-card">
-                    <span class="meal-tag">Algerian</span>
-                    <img src="/api/placeholder/400/200" alt="Mhadjeb" class="meal-image">
-                    <div class="meal-content">
-                        <h3 class="meal-title">Mhadjeb</h3>
-                        <p class="meal-description">Flatbread stuffed with tomato, onion and spice mixture</p>
-                        <div class="meal-meta">
-                            <div class="carbs-indicator">
-                                <span class="carbs-label">Carbs:</span>
-                                <span class="carbs-value">35g</span>
-                            </div>
-                            <div class="carbs-badge carbs-medium">Medium</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Hrira -->
-                <div class="meal-card">
-                    <span class="meal-tag">Algerian</span>
-                    <img src="/api/placeholder/400/200" alt="Hrira" class="meal-image">
-                    <div class="meal-content">
-                        <h3 class="meal-title">Hrira</h3>
-                        <p class="meal-description">Rich tomato-based soup with lentils, chickpeas, and meat</p>
-                        <div class="meal-meta">
-                            <div class="carbs-indicator">
-                                <span class="carbs-label">Carbs:</span>
-                                <span class="carbs-value">30g</span>
-                            </div>
-                            <div class="carbs-badge carbs-medium">Medium</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Zlabia -->
-                <div class="meal-card">
-                    <span class="meal-tag">Algerian</span>
-                    <img src="/api/placeholder/400/200" alt="Zlabia" class="meal-image">
-                    <div class="meal-content">
-                        <h3 class="meal-title">Zlabia</h3>
-                        <p class="meal-description">Sweet deep-fried batter soaked in honey or sugar syrup</p>
-                        <div class="meal-meta">
-                            <div class="carbs-indicator">
-                                <span class="carbs-label">Carbs:</span>
-                                <span class="carbs-value">55g</span>
-                            </div>
-                            <div class="carbs-badge carbs-high">High</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Tajine Zitoune -->
-                <div class="meal-card">
-                    <span class="meal-tag">Algerian</span>
-                    <img src="/api/placeholder/400/200" alt="Tajine Zitoune" class="meal-image">
-                    <div class="meal-content">
-                        <h3 class="meal-title">Tajine Zitoune</h3>
-                        <p class="meal-description">Chicken tajine with olives and preserved lemon in a flavorful sauce</p>
-                        <div class="meal-meta">
-                            <div class="carbs-indicator">
-                                <span class="carbs-label">Carbs:</span>
-                                <span class="carbs-value">15g</span>
-                            </div>
-                            <div class="carbs-badge carbs-low">Low</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Baklava -->
-                <div class="meal-card">
-                    <span class="meal-tag">Algerian</span>
-                    <img src="/api/placeholder/400/200" alt="Baklava" class="meal-image">
-                    <div class="meal-content">
-                        <h3 class="meal-title">Baklava</h3>
-                        <p class="meal-description">Sweet layered pastry filled with chopped nuts and soaked in honey</p>
-                        <div class="meal-meta">
-                            <div class="carbs-indicator">
-                                <span class="carbs-label">Carbs:</span>
-                                <span class="carbs-value">65g</span>
-                            </div>
-                            <div class="carbs-badge carbs-high">High</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Tamina -->
-                <div class="meal-card">
-                    <span class="meal-tag">Algerian</span>
-                    <img src="/api/placeholder/400/200" alt="Tamina" class="meal-image">
-                    <div class="meal-content">
-                        <h3 class="meal-title">Tamina</h3>
-                        <p class="meal-description">Sweet dessert made from toasted semolina, honey, and butter</p>
-                        <div class="meal-meta">
-                            <div class="carbs-indicator">
-                                <span class="carbs-label">Carbs:</span>
-                                <span class="carbs-value">50g</span>
-                            </div>
-                            <div class="carbs-badge carbs-high">High</div>
-                        </div>
-                    </div>
-                </div>
-                <!-- International Meals -->
-
-<!-- Spaghetti Bolognese -->
-               <div class="meal-card">
-    <span class="meal-tag">International</span>
-    <img src="/api/placeholder/400/200" alt="Spaghetti Bolognese" class="meal-image">
-    <div class="meal-content">
-        <h3 class="meal-title">Spaghetti Bolognese</h3>
-        <p class="meal-description">Classic Italian pasta with rich meat sauce</p>
-        <div class="meal-meta">
-            <div class="carbs-indicator">
-                <span class="carbs-label">Carbs:</span>
-                <span class="carbs-value">60g</span>
             </div>
-            <div class="carbs-badge carbs-high">High</div>
         </div>
-    </div>
-</div>
+    </main>
 
-<!-- Sushi -->
-<div class="meal-card">
-    <span class="meal-tag">International</span>
-    <img src="/api/placeholder/400/200" alt="Sushi" class="meal-image">
-    <div class="meal-content">
-        <h3 class="meal-title">Sushi</h3>
-        <p class="meal-description">Japanese rice rolls with fish and vegetables</p>
-        <div class="meal-meta">
-            <div class="carbs-indicator">
-                <span class="carbs-label">Carbs:</span>
-                <span class="carbs-value">40g</span>
-            </div>
-            <div class="carbs-badge carbs-medium">Medium</div>
-        </div>
-    </div>
-</div>
+    <script>
+        function increaseQuantity(button) {
+            const input = button.previousElementSibling;
+            const currentValue = parseInt(input.value) || 0;
+            input.value = currentValue + 10;
+            updateTotalCarbs(input);
+        }
 
-<!-- Chicken Tikka Masala -->
-<div class="meal-card">
-    <span class="meal-tag">International</span>
-    <img src="/api/placeholder/400/200" alt="Chicken Tikka Masala" class="meal-image">
-    <div class="meal-content">
-        <h3 class="meal-title">Chicken Tikka Masala</h3>
-        <p class="meal-description">Indian chicken curry in creamy tomato sauce</p>
-        <div class="meal-meta">
-            <div class="carbs-indicator">
-                <span class="carbs-label">Carbs:</span>
-                <span class="carbs-value">25g</span>
-            </div>
-            <div class="carbs-badge carbs-medium">Medium</div>
-        </div>
-    </div>
-</div>
+        function decreaseQuantity(button) {
+            const input = button.nextElementSibling;
+            const currentValue = parseInt(input.value) || 0;
+            if (currentValue > 10) {
+                input.value = currentValue - 10;
+                updateTotalCarbs(input);
+            }
+        }
 
-<!-- Caesar Salad -->
-<div class="meal-card">
-    <span class="meal-tag">International</span>
-    <img src="/api/placeholder/400/200" alt="Caesar Salad" class="meal-image">
-    <div class="meal-content">
-        <h3 class="meal-title">Caesar Salad</h3>
-        <p class="meal-description">Fresh salad with romaine, croutons, and parmesan</p>
-        <div class="meal-meta">
-            <div class="carbs-indicator">
-                <span class="carbs-label">Carbs:</span>
-                <span class="carbs-value">15g</span>
-            </div>
-            <div class="carbs-badge carbs-low">Low</div>
-        </div>
-    </div>
-</div>
+        function updateTotalCarbs(input) {
+            const quantity = parseInt(input.value) || 0;
+            const carbsInfo = input.closest('.carbs-info');
+            const carbsPerGram = parseFloat(carbsInfo.querySelector('.carbs-per-gram-value').textContent);
+            const totalCarbsElement = carbsInfo.querySelector('.total-carbs-value');
 
-<!-- Cheeseburger -->
-<div class="meal-card">
-    <span class="meal-tag">International</span>
-    <img src="/api/placeholder/400/200" alt="Cheeseburger" class="meal-image">
-    <div class="meal-content">
-        <h3 class="meal-title">Cheeseburger</h3>
-        <p class="meal-description">Classic American burger with cheese and toppings</p>
-        <div class="meal-meta">
-            <div class="carbs-indicator">
-                <span class="carbs-label">Carbs:</span>
-                <span class="carbs-value">35g</span>
-            </div>
-            <div class="carbs-badge carbs-medium">Medium</div>
-        </div>
-    </div>
-</div>
+            const totalCarbs = (quantity * carbsPerGram / 100).toFixed(1);
+            totalCarbsElement.textContent = totalCarbs + 'g';
+        }
 
-<!-- Pad Thai -->
-<div class="meal-card">
-    <span class="meal-tag">International</span>
-    <img src="/api/placeholder/400/200" alt="Pad Thai" class="meal-image">
-    <div class="meal-content">
-        <h3 class="meal-title">Pad Thai</h3>
-        <p class="meal-description">Thai stir-fried rice noodles with shrimp and peanuts</p>
-        <div class="meal-meta">
-            <div class="carbs-indicator">
-                <span class="carbs-label">Carbs:</span>
-                <span class="carbs-value">55g</span>
-            </div>
-            <div class="carbs-badge carbs-high">High</div>
-        </div>
-    </div>
-</div>
-<!-- International Meals -->
+        // Filter functionality
+        document.querySelectorAll('.filter-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
 
-<!-- Spaghetti Bolognese -->
-<div class="meal-card">
-    <span class="meal-tag">International</span>
-    <img src="/api/placeholder/400/200" alt="Spaghetti Bolognese" class="meal-image">
-    <div class="meal-content">
-        <h3 class="meal-title">Spaghetti Bolognese</h3>
-        <p class="meal-description">Classic Italian pasta with rich meat sauce</p>
-        <div class="meal-meta">
-            <div class="carbs-indicator">
-                <span class="carbs-label">Carbs:</span>
-                <span class="carbs-value">60g</span>
-            </div>
-            <div class="carbs-badge carbs-high">High</div>
-        </div>
-    </div>
-</div>
+        // Search functionality
+        document.querySelector('.search-input').addEventListener('input', function(e) {
+            const searchTerm = e.target.value.toLowerCase();
+            const mealCards = document.querySelectorAll('.meal-card');
 
-<!-- Sushi -->
-<div class="meal-card">
-    <span class="meal-tag">International</span>
-    <img src="/api/placeholder/400/200" alt="Sushi" class="meal-image">
-    <div class="meal-content">
-        <h3 class="meal-title">Sushi</h3>
-        <p class="meal-description">Japanese rice rolls with fish and vegetables</p>
-        <div class="meal-meta">
-            <div class="carbs-indicator">
-                <span class="carbs-label">Carbs:</span>
-                <span class="carbs-value">40g</span>
-            </div>
-            <div class="carbs-badge carbs-medium">Medium</div>
-        </div>
-    </div>
-</div>
+            mealCards.forEach(card => {
+                const title = card.querySelector('.meal-title').textContent.toLowerCase();
+                const description = card.querySelector('.meal-description').textContent.toLowerCase();
 
-<!-- Chicken Tikka Masala -->
-<div class="meal-card">
-    <span class="meal-tag">International</span>
-    <img src="/api/placeholder/400/200" alt="Chicken Tikka Masala" class="meal-image">
-    <div class="meal-content">
-        <h3 class="meal-title">Chicken Tikka Masala</h3>
-        <p class="meal-description">Indian chicken curry in creamy tomato sauce</p>
-        <div class="meal-meta">
-            <div class="carbs-indicator">
-                <span class="carbs-label">Carbs:</span>
-                <span class="carbs-value">25g</span>
-            </div>
-            <div class="carbs-badge carbs-medium">Medium</div>
-        </div>
-    </div>
-</div>
-
-<!-- Caesar Salad -->
-<div class="meal-card">
-    <span class="meal-tag">International</span>
-    <img src="/api/placeholder/400/200" alt="Caesar Salad" class="meal-image">
-    <div class="meal-content">
-        <h3 class="meal-title">Caesar Salad</h3>
-        <p class="meal-description">Fresh salad with romaine, croutons, and parmesan</p>
-        <div class="meal-meta">
-            <div class="carbs-indicator">
-                <span class="carbs-label">Carbs:</span>
-                <span class="carbs-value">15g</span>
-            </div>
-            <div class="carbs-badge carbs-low">Low</div>
-        </div>
-    </div>
-</div>
-
-<!-- Cheeseburger -->
-<div class="meal-card">
-    <span class="meal-tag">International</span>
-    <img src="/api/placeholder/400/200" alt="Cheeseburger" class="meal-image">
-    <div class="meal-content">
-        <h3 class="meal-title">Cheeseburger</h3>
-        <p class="meal-description">Classic American burger with cheese and toppings</p>
-        <div class="meal-meta">
-            <div class="carbs-indicator">
-                <span class="carbs-label">Carbs:</span>
-                <span class="carbs-value">35g</span>
-            </div>
-            <div class="carbs-badge carbs-medium">Medium</div>
-        </div>
-    </div>
-</div>
-
-<!-- Pad Thai -->
-<div class="meal-card">
-    <span class="meal-tag">International</span>
-    <img src="/api/placeholder/400/200" alt="Pad Thai" class="meal-image">
-    <div class="meal-content">
-        <h3 class="meal-title">Pad Thai</h3>
-        <p class="meal-description">Thai stir-fried rice noodles with shrimp and peanuts</p>
-        <div class="meal-meta">
-            <div class="carbs-indicator">
-                <span class="carbs-label">Carbs:</span>
-                <span class="carbs-value">55g</span>
-            </div>
-            <div class="carbs-badge carbs-high">High</div>
-        </div>
-    </div>
-</div>
-<!-- Greek Salad -->
-<div class="meal-card">
-    <span class="meal-tag">International</span>
-    <img src="/api/placeholder/400/200" alt="Greek Salad" class="meal-image">
-    <div class="meal-content">
-        <h3 class="meal-title">Greek Salad</h3>
-        <p class="meal-description">Fresh salad with tomatoes, cucumber, olives, and feta cheese</p>
-        <div class="meal-meta">
-            <div class="carbs-indicator">
-                <span class="carbs-label">Carbs:</span>
-                <span class="carbs-value">10g</span>
-            </div>
-            <div class="carbs-badge carbs-low">Low</div>
-        </div>
-    </div>
-</div>
-
-<!-- Grilled Salmon with Veggies -->
-<div class="meal-card">
-    <span class="meal-tag">International</span>
-    <img src="/api/placeholder/400/200" alt="Grilled Salmon" class="meal-image">
-    <div class="meal-content">
-        <h3 class="meal-title">Grilled Salmon & Veggies</h3>
-        <p class="meal-description">Salmon fillet grilled and served with steamed vegetables</p>
-        <div class="meal-meta">
-            <div class="carbs-indicator">
-                <span class="carbs-label">Carbs:</span>
-                <span class="carbs-value">8g</span>
-            </div>
-            <div class="carbs-badge carbs-low">Low</div>
-        </div>
-    </div>
-</div>
-
-<!-- Quinoa & Chickpea Bowl -->
-<div class="meal-card">
-    <span class="meal-tag">International</span>
-    <img src="/api/placeholder/400/200" alt="Quinoa Chickpea Bowl" class="meal-image">
-    <div class="meal-content">
-        <h3 class="meal-title">Quinoa & Chickpea Bowl</h3>
-        <p class="meal-description">Protein-rich bowl with quinoa, chickpeas, and fresh veggies</p>
-        <div class="meal-meta">
-            <div class="carbs-indicator">
-                <span class="carbs-label">Carbs:</span>
-                <span class="carbs-value">28g</span>
-            </div>
-            <div class="carbs-badge carbs-medium">Medium</div>
-        </div>
-    </div>
-</div>
-
-<!-- Chicken Stir Fry -->
-<div class="meal-card">
-    <span class="meal-tag">International</span>
-    <img src="/api/placeholder/400/200" alt="Chicken Stir Fry" class="meal-image">
-    <div class="meal-content">
-        <h3 class="meal-title">Chicken Stir Fry</h3>
-        <p class="meal-description">Lean chicken breast stir-fried with colorful vegetables</p>
-        <div class="meal-meta">
-            <div class="carbs-indicator">
-                <span class="carbs-label">Carbs:</span>
-                <span class="carbs-value">18g</span>
-            </div>
-            <div class="carbs-badge carbs-low">Low</div>
-        </div>
-    </div>
-</div>
-
-<!-- Lentil Soup -->
-<div class="meal-card">
-    <span class="meal-tag">International</span>
-    <img src="/api/placeholder/400/200" alt="Lentil Soup" class="meal-image">
-    <div class="meal-content">
-        <h3 class="meal-title">Lentil Soup</h3>
-        <p class="meal-description">Hearty soup made with lentils, carrots, and celery</p>
-        <div class="meal-meta">
-            <div class="carbs-indicator">
-                <span class="carbs-label">Carbs:</span>
-                <span class="carbs-value">22g</span>
-            </div>
-            <div class="carbs-badge carbs-medium">Medium</div>
-        </div>
-    </div>
-</div>
-
-<!-- Caprese Salad -->
-<div class="meal-card">
-    <span class="meal-tag">International</span>
-    <img src="/api/placeholder/400/200" alt="Caprese Salad" class="meal-image">
-    <div class="meal-content">
-        <h3 class="meal-title">Caprese Salad</h3>
-        <p class="meal-description">Italian salad with tomatoes, mozzarella, basil, and olive oil</p>
-        <div class="meal-meta">
-            <div class="carbs-indicator">
-                <span class="carbs-label">Carbs:</span>
-                <span class="carbs-value">7g</span>
-            </div>
-            <div class="carbs-badge carbs-low">Low</div>
-        </div>
-    </div>
-</div>
-
+                if (title.includes(searchTerm) || description.includes(searchTerm)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
