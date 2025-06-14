@@ -429,7 +429,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="targetBG">Glycémie cible</label>
+                        <label for="targetBG">Glycémie normal</label>
                         <div class="input-group">
                             <input type="number" class="form-control" id="targetBG" name="targetBG" placeholder="Glycémie cible" min="0" step="1" value="120" required>
                             <div class="input-group-append">mg/dL</div>

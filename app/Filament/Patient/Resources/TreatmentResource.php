@@ -43,24 +43,35 @@ class TreatmentResource extends Resource
             ]);
     }
 
-    public static function table(Table $table): Table
-    {
-        return $table
-            ->columns([
-                //
-            ])
-            ->filters([
-                //
-            ])
-            ->actions([
-                Tables\Actions\EditAction::make(),
-            ])
-            ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
-            ]);
-    }
+
+public static function table(Table $table): Table
+{
+    return $table
+        ->columns([
+            Tables\Columns\TextColumn::make('doctor.name')
+                ->label('Doctor')
+                ->searchable(),
+            Tables\Columns\TextColumn::make('note')
+                ->label('Note')
+                ->limit(40)
+                ->wrap(),
+            Tables\Columns\TextColumn::make('created_at')
+                ->label('Prescribed At')
+                ->dateTime('d/m/Y H:i'),
+            Tables\Columns\TextColumn::make('medications_pivot_count')
+                ->counts('medications_pivot')
+                ->label('Medications Count'),
+        ])
+        ->filters([
+            // Add filters if needed
+        ])
+        ->actions([
+            Tables\Actions\ViewAction::make(),
+        ])
+        ->bulkActions([
+            // No bulk actions for patients
+        ]);
+}
 
     public static function getRelations(): array
     {
