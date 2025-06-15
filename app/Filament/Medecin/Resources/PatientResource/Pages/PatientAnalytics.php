@@ -5,6 +5,8 @@ namespace App\Filament\Medecin\Resources\PatientResource\Pages;
 use App\Filament\Medecin\Resources\PatientResource;
 use App\Filament\Medecin\Widgets\PatientGlycemieChart;
 use App\Filament\Medecin\Widgets\PatientInsulinChart;
+use App\Filament\Patient\Widgets\HistoriqueGlycemieWidget;
+use App\Filament\Patient\Widgets\HistoriqueInsulineWidget;
 use App\Models\Glycemies;
 use App\Models\DoseInsuline;
 use App\Models\User;
@@ -196,14 +198,7 @@ class PatientAnalytics extends ViewRecord implements HasForms, HasTable
 
     protected function getHeaderWidgets(): array
     {
-        return [
-            PatientGlycemieChart::make([
-                'patient_id' => $this->record->id
-            ]),
-            PatientInsulinChart::make([
-                'patient_id' => $this->record->id
-            ])
-        ];
+        return [];
     }
 
 
